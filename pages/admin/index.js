@@ -9,7 +9,8 @@ import FullScreenLayout from "../../components/FullScreenLayout";
 
 const useStyles = makeStyles({
   button: {
-    margin: "1rem auto",
+    minWidth: "10rem",
+    minHeight: "3rem",
   },
 });
 
@@ -18,17 +19,25 @@ export default function AdminTop() {
 
   return (
     <FullScreenLayout>
-      <Box className={classes.button}>
+      <Box>
         <Link href="/admin/login">
-          <Button variant="contained" color="secondary">
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+          >
             Admin Login
           </Button>
         </Link>
       </Box>
 
-      <Box className={classes.button}>
+      <Box>
         <Link href="/">
-          <Button variant="contained" color="default">
+          <Button
+            variant="contained"
+            color="default"
+            className={classes.button}
+          >
             Back to Menu
           </Button>
         </Link>

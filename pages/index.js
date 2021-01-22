@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    marginTop: 56,
     backgroundColor: theme.palette.background.secondary,
     minHeight: "calc(100vh - 56px - 144px)",
   },

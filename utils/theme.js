@@ -40,6 +40,24 @@ const theme = createMuiTheme({
       secondary: "#F2F2F2",
     },
   },
+  overrides: {
+    MuiTextField: {
+      root: {
+        backgroundColor: "#F2F2F2",
+        borderRadius: 5,
+
+        "& label": {
+          color: "#828282",
+        },
+      },
+    },
+    MuiButton: {
+      root: {
+        marginBottom: "1rem",
+        minWidth: "6rem",
+      },
+    },
+  },
 });
 
 export default theme;

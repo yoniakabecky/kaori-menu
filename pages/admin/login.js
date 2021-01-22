@@ -13,18 +13,13 @@ const useStyles = makeStyles((theme) => ({
   input: {
     margin: "0.5rem auto",
     width: "80%",
-    backgroundColor: theme.palette.background.secondary,
-    borderRadius: 5,
-
-    "& label": {
-      color: "#828282",
-    },
   },
   buttons: {
     margin: "1rem auto",
   },
   btn: {
     margin: "0 0.5rem",
+    width: "6rem",
   },
 }));
 

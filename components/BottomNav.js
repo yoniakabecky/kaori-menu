@@ -11,6 +11,10 @@ import ListIcon from "./icons/ListIcon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    position: "fixed",
+    right: 0,
+    bottom: 0,
+    left: 0,
     backgroundColor: theme.palette.background.default,
     fill: "#828282",
   },
@@ -25,6 +29,11 @@ export default function BottomNav() {
   const classes = useStyles();
   const router = useRouter();
   const [page, setPage] = React.useState(router.pathname);
+
+  React.useEffect(() => {
+    if (router.pathname.startsWith("/admin/cate")) setPage("/admin/categories");
+    if (router.pathname.startsWith("/admin/item")) setPage("/admin/items");
+  }, []);
 
   const handleChange = (_, newPage) => {
     setPage(newPage);

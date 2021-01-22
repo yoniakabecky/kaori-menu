@@ -10,7 +10,7 @@ import MenuIcon from "./icons/MenuIcon";
 
 export default function TopNav({ isAdmin }) {
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         <Image src="/logo.png" alt="logo" width="138" height="32" />
 

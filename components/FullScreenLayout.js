@@ -14,13 +14,13 @@ const useStyles = makeStyles({
   },
   logo: {
     position: "absolute",
-    top: "20vh",
+    top: "25vh",
     left: "50%",
     transform: "translateX(-50%)",
   },
   contents: {
     position: "absolute",
-    top: "40vh",
+    top: "45vh",
     left: "50%",
     transform: "translateX(-50%)",
     layout: "flex",
