@@ -100,22 +100,24 @@ export default function AddCategoryPage() {
           onChange={handleChange}
         />
 
-        <Button
-          color="default"
-          className={classes.btn}
-          onClick={() => router.back()}
-        >
-          Cancel
-        </Button>
+        <Box>
+          <Button
+            color="default"
+            className={classes.btn}
+            onClick={() => router.back()}
+          >
+            Cancel
+          </Button>
 
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.btn}
-          onClick={handleAdd}
-        >
-          Add
-        </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.btn}
+            onClick={handleAdd}
+          >
+            Add
+          </Button>
+        </Box>
       </Box>
     </React.Fragment>
   );

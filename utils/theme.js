@@ -41,7 +41,7 @@ const theme = createMuiTheme({
     },
   },
   overrides: {
-    MuiTextField: {
+    MuiFormControl: {
       root: {
         backgroundColor: "#F2F2F2",
         borderRadius: 5,

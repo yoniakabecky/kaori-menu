@@ -1,6 +1,7 @@
 import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -21,8 +22,20 @@ const useStyles = makeStyles((theme) => ({
   description: {
     marginTop: "1rem",
     padding: "0 1rem",
-    paddingBottom: "0.5rem",
     color: "#828282",
+  },
+  price: {
+    padding: "0.5rem 1rem",
+    fontWeight: 700,
+  },
+  display: {
+    padding: "0 1rem",
+  },
+  image: {
+    width: "85%",
+    height: "100%",
+    maxHeight: 80,
+    borderRadius: 5,
   },
   drag: {
     position: "absolute",
@@ -38,15 +51,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CategoryCard({ id, category, description }) {
+export default function CategoryCard({ type, ...props }) {
   const classes = useStyles();
+  const { id, description, price, image, askAvailability, display } = props;
+  const name = type === "item" ? props.item : props.category;
 
   return (
     <Paper className={classes.root}>
       <DraggableIcon className={classes.drag} />
 
       <Typography variant="h3" className={classes.name}>
-        {category}
+        {name}
       </Typography>
 
       <IconButton className={classes.edit} onClick={() => console.log({ id })}>
@@ -57,6 +72,38 @@ export default function CategoryCard({ id, category, description }) {
         <Typography variant="body1" className={classes.description}>
           {description}
         </Typography>
+      )}
+
+      {type === "item" && (
+        <Grid container>
+          <Grid item xs={6} sm={8}>
+            <Typography variant="body1" className={classes.price}>
+              $ {price}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              color="secondary"
+              className={classes.display}
+            >
+              Display: {display ? "On" : "Off"}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              color="secondary"
+              className={classes.display}
+            >
+              Ask Server: {askAvailability ? "On" : "Off"}
+            </Typography>
+          </Grid>
+
+          {image && (
+            <Grid item xs={6} sm={4}>
+              <img className={classes.image} src={image} alt={name} />
+            </Grid>
+          )}
+        </Grid>
       )}
     </Paper>
   );

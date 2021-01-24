@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 
 import firebase from "../utils/firebaseConfig";
 import AddFolderIcon from "./icons/AddFolderIcon";
-import CategoryCard from "./CategoryCard";
+import DraggableCard from "./DraggableCard";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2rem",
   },
   fab: {
-    position: "absolute",
+    position: "fixed",
     right: "1.5rem",
-    bottom: "1.5rem",
+    bottom: "5rem",
     backgroundColor: theme.palette.secondary.main,
   },
 }));
@@ -47,7 +47,7 @@ export default function CategoriesPage() {
       </Typography>
 
       {categories.map((category) => (
-        <CategoryCard {...category} key={`category-${category.id}`} />
+        <DraggableCard {...category} key={`category-${category.id}`} />
       ))}
 
       <Fab
