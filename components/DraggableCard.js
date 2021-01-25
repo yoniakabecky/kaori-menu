@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -51,8 +52,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CategoryCard({ type, ...props }) {
+export default function DraggableCard({ type, ...props }) {
   const classes = useStyles();
+  const router = useRouter();
   const { id, description, price, image, askAvailability, display } = props;
   const name = type === "item" ? props.item : props.category;
 
@@ -64,7 +66,10 @@ export default function CategoryCard({ type, ...props }) {
         {name}
       </Typography>
 
-      <IconButton className={classes.edit} onClick={() => console.log({ id })}>
+      <IconButton
+        className={classes.edit}
+        onClick={() => router.push(`/admin/${type}/${id}`)}
+      >
         <EditIcon />
       </IconButton>
 

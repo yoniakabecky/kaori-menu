@@ -9,7 +9,6 @@ import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import Select from "@material-ui/core/Select";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -18,10 +17,6 @@ import firebase from "../utils/firebaseConfig";
 import { InputLabel, MenuItem } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  title: {
-    marginBottom: "2rem",
-    textAlign: "center",
-  },
   form: {
     textAlign: "center",
     color: theme.palette.text.secondary,
@@ -72,28 +67,18 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function AddItemPage() {
+export default function ItemInput({
+  handleSave,
+  categories,
+  data = initInput,
+}) {
   const classes = useStyles();
   const router = useRouter();
-  const [error, setError] = useState({ ...initInput });
-  const [input, setInput] = useState({ ...initInput });
+  const [input, setInput] = useState({ ...data });
   const [availability, setAvailability] = useState(false);
-  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState({ item: "", price: "", category: "" });
   const [errorBar, setErrorBar] = useState(false);
   const inputFile = React.useRef(null);
-
-  React.useEffect(() => {
-    firebase
-      .firestore()
-      .collection("categories")
-      .onSnapshot((snapshot) => {
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setCategories(data);
-      });
-  }, []);
 
   const handleOnBlur = (e) => {
     const { name, value } = e.target;
@@ -126,7 +111,7 @@ export default function AddItemPage() {
   };
 
   const inputValidation = () => {
-    let errorMsg = { ...initInput };
+    let errorMsg = { item: "", price: "", category: "" };
 
     errorMsg.item = input.item === "" ? "Item Name must not be empty" : "";
     errorMsg.price = input.price === "" ? "Price must not be empty" : "";
@@ -137,23 +122,24 @@ export default function AddItemPage() {
     return input.item === "" || input.price === "" || input.category === "";
   };
 
-  const handleAdd = async () => {
+  const handleClick = async () => {
     const hasError = inputValidation();
 
     if (!hasError) {
-      await firebase
-        .firestore()
-        .collection("items")
-        .add({
-          ...input,
-          askAvailability: availability,
-        });
-
-      setInput({
-        ...initInput,
+      const result = await handleSave({
+        ...input,
+        askAvailability: availability,
       });
 
-      router.back();
+      if (result) {
+        setInput({
+          ...initInput,
+        });
+
+        router.back();
+      } else {
+        setErrorBar(true);
+      }
     } else {
       setErrorBar(true);
     }
@@ -161,10 +147,6 @@ export default function AddItemPage() {
 
   return (
     <React.Fragment>
-      <Typography variant="h2" color="textSecondary" className={classes.title}>
-        Add Item
-      </Typography>
-
       <Box component="form" className={classes.form}>
         <TextField
           label="item name"
@@ -266,8 +248,8 @@ export default function AddItemPage() {
             Cancel
           </Button>
 
-          <Button variant="contained" color="secondary" onClick={handleAdd}>
-            Add
+          <Button variant="contained" color="secondary" onClick={handleClick}>
+            Save
           </Button>
         </Box>
       </Box>

@@ -3,17 +3,28 @@ import React from "react";
 
 import AdminLayout from "../../components/AdminLayout";
 import CategoriesPage from "../../components/CategoriesPage";
+import { getAllCategories } from "../../utils/handlers";
 
-export default function Categories() {
+export default function Categories({ categories }) {
   return (
     <React.Fragment>
       <Head>
         <title>Categories - Admin | Kaori Izakaya</title>
       </Head>
 
-      <AdminLayout>
-        <CategoriesPage />
+      <AdminLayout pageTitle="Categories">
+        <CategoriesPage categories={categories} />
       </AdminLayout>
     </React.Fragment>
   );
 }
+
+export const getServerSideProps = async () => {
+  const categories = await getAllCategories();
+
+  return {
+    props: {
+      categories,
+    },
+  };
+};

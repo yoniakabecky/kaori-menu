@@ -11,7 +11,7 @@ export default function Menu() {
         <title>Menu - Admin | Kaori Izakaya</title>
       </Head>
 
-      <AdminLayout>
+      <AdminLayout pageTitle="Your Menu">
         <MenuPage />
       </AdminLayout>
     </React.Fragment>

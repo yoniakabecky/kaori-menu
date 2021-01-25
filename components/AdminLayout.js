@@ -2,6 +2,7 @@ import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 
 import BottomNav from "./BottomNav";
 import TopNav from "./TopNav";
@@ -15,9 +16,13 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     minHeight: "calc(100vh - 56px - 56px)",
   },
+  title: {
+    marginBottom: "2rem",
+    textAlign: "center",
+  },
 }));
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout({ children, pageTitle }) {
   const classes = useStyles();
 
   return (
@@ -25,6 +30,14 @@ export default function AdminLayout({ children }) {
       <TopNav isAdmin={true} />
 
       <Container component="main" className={classes.container}>
+        <Typography
+          variant="h2"
+          color="textSecondary"
+          className={classes.title}
+        >
+          {pageTitle}
+        </Typography>
+
         {children}
       </Container>
 

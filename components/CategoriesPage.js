@@ -3,7 +3,6 @@ import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
-import Typography from "@material-ui/core/Typography";
 
 import firebase from "../utils/firebaseConfig";
 import AddFolderIcon from "./icons/AddFolderIcon";
@@ -22,32 +21,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CategoriesPage() {
+export default function CategoriesPage({ categories }) {
   const classes = useStyles();
   const router = useRouter();
-  const [categories, setCategories] = React.useState([]);
-
-  React.useEffect(() => {
-    firebase
-      .firestore()
-      .collection("categories")
-      .onSnapshot((snapshot) => {
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setCategories(data);
-      });
-  }, []);
 
   return (
     <React.Fragment>
-      <Typography variant="h2" color="textSecondary" className={classes.title}>
-        Categories
-      </Typography>
-
       {categories.map((category) => (
-        <DraggableCard {...category} key={`category-${category.id}`} />
+        <DraggableCard
+          {...category}
+          type="category"
+          key={`category-${category.id}`}
+        />
       ))}
 
       <Fab
