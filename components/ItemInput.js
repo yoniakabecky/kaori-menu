@@ -13,7 +13,7 @@ import Select from "@material-ui/core/Select";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
-import firebase from "../utils/firebaseConfig";
+import firebase from "@@/utils/firebaseConfig";
 import { InputLabel, MenuItem } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({

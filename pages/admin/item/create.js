@@ -1,10 +1,10 @@
 import Head from "next/head";
 import React from "react";
 
-import AdminLayout from "../../../components/AdminLayout";
-import ItemInput from "../../../components/ItemInput";
-import firebase from "../../../utils/firebaseConfig";
-import { getAllCategories } from "../../../utils/handlers";
+import AdminLayout from "@@/components/layouts/AdminLayout";
+import ItemInput from "@@/components/ItemInput";
+import firebase from "@@/utils/firebaseConfig";
+import { getAllCategories } from "@@/utils/handlers";
 
 export default function AddItem({ categories }) {
   const handleAdd = async (input) => {

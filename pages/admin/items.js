@@ -1,9 +1,9 @@
 import Head from "next/head";
 import React from "react";
 
-import AdminLayout from "../../components/AdminLayout";
-import ItemsPage from "../../components/ItemsPage";
-import { getAllCategories } from "../../utils/handlers";
+import AdminLayout from "@@/components/layouts/AdminLayout";
+import ItemsPage from "@@/components/pages/ItemsPage";
+import { getAllCategories } from "@@/utils/handlers";
 
 export default function Items({ categories }) {
   return (

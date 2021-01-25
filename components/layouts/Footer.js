@@ -7,11 +7,11 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-import FacebookIcon from "./icons/FacebookIcon";
-import InstagramIcon from "./icons/InstagramIcon";
-import LocationIcon from "./icons/LocationIcon";
-import MailIcon from "./icons/MailIcon";
-import PhoneIcon from "./icons/PhoneIcon";
+import FacebookIcon from "../icons/FacebookIcon";
+import InstagramIcon from "../icons/InstagramIcon";
+import LocationIcon from "../icons/LocationIcon";
+import MailIcon from "../icons/MailIcon";
+import PhoneIcon from "../icons/PhoneIcon";
 
 const useStyles = makeStyles((theme) => ({
   root: {

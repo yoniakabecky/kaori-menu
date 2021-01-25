@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 
-import MenuIcon from "./icons/MenuIcon";
+import MenuIcon from "../icons/MenuIcon";
 
 export default function TopNav({ isAdmin }) {
   return (

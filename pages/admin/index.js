@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 
-import FullScreenLayout from "../../components/FullScreenLayout";
+import FullScreenLayout from "@@/components/layouts/FullScreenLayout";
 
 const useStyles = makeStyles({
   button: {

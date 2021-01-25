@@ -5,8 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
-import TopNav from "../components/TopNav";
-import Footer from "../components/Footer";
+import TopNav from "@@/components/layouts/TopNav";
+import Footer from "@@/components/layouts/Footer";
 
 const useStyles = makeStyles((theme) => ({
   container: {

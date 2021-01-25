@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import React from "react";
 import Head from "next/head";
 
-import theme from "../utils/theme";
+import theme from "@@/utils/theme";
 
 export default function MyApp({ Component, pageProps }) {
   React.useEffect(() => {

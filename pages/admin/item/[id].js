@@ -1,10 +1,10 @@
 import Head from "next/head";
 import React from "react";
 
-import firebase from "../../../utils/firebaseConfig";
-import AdminLayout from "../../../components/AdminLayout";
-import ItemInput from "../../../components/ItemInput";
-import { getAllCategories, getItemById } from "../../../utils/handlers";
+import AdminLayout from "@@/components/layouts/AdminLayout";
+import ItemInput from "@@/components/ItemInput";
+import firebase from "@@/utils/firebaseConfig";
+import { getAllCategories, getItemById } from "@@/utils/handlers";
 
 export default function EditItem({ data, categories, id }) {
   const handleUpdate = async (input) => {

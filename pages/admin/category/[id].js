@@ -1,10 +1,10 @@
 import Head from "next/head";
 import React from "react";
 
-import firebase from "../../../utils/firebaseConfig";
-import AdminLayout from "../../../components/AdminLayout";
-import CategoryInput from "../../../components/CategoryInput";
-import { getCategoryById } from "../../../utils/handlers";
+import AdminLayout from "@@/components/layouts/AdminLayout";
+import CategoryInput from "@@/components/CategoryInput";
+import firebase from "@@/utils/firebaseConfig";
+import { getCategoryById } from "@@/utils/handlers";
 
 export default function EditCategory({ data, id }) {
   const handleUpdate = async (input) => {

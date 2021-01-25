@@ -5,9 +5,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 
-import FolderIcon from "./icons/FolderIcon";
-import FoodMenuIcon from "./icons/FoodMenuIcon";
-import ListIcon from "./icons/ListIcon";
+import FolderIcon from "../icons/FolderIcon";
+import FoodMenuIcon from "../icons/FoodMenuIcon";
+import ListIcon from "../icons/ListIcon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
