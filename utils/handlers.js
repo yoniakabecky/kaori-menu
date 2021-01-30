@@ -20,3 +20,16 @@ export const getItemById = async (id) => {
 
   return res.data();
 };
+
+export const getItemsByCategory = async (category) => {
+  const snapshot = await firebase
+    .firestore()
+    .collection("items")
+    .where("category", "==", category)
+    .get();
+
+  return snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+};

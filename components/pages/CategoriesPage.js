@@ -8,10 +8,6 @@ import AddFolderIcon from "../icons/AddFolderIcon";
 import DraggableCard from "../DraggableCard";
 
 const useStyles = makeStyles((theme) => ({
-  title: {
-    textAlign: "center",
-    marginBottom: "2rem",
-  },
   fab: {
     position: "fixed",
     right: "1.5rem",

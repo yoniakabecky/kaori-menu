@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "2rem",
     width: "100%",
     minHeight: "8rem",
+    backgroundColor: theme.palette.primary.main,
   },
   icons: {
     marginRight: "0.5rem",

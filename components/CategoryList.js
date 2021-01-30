@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import firebase from "@@/utils/firebaseConfig";
 import TriangleIcon from "./icons/TriangleIcon";
 import DraggableCard from "./DraggableCard";
+import { getItemsByCategory } from "../utils/handlers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,20 +32,13 @@ export default function CategoryList({ category, id }) {
   const classes = useStyles();
   const [items, setItems] = React.useState([]);
 
-  const handleClick = () => {
-    firebase
-      .firestore()
-      .collection("items")
-      .where("category", "==", id)
-      .get()
-      .then((snapshot) => {
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        setItems(data);
-      });
+  const handleClick = async () => {
+    try {
+      const data = await getItemsByCategory(id);
+      setItems(data);
+    } catch (err) {
+      console.error("Failed to get items: ", err);
+    }
   };
 
   return (
