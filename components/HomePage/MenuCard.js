@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "1rem auto",
-    padding: "1rem 1.5rem",
+    padding: "1rem",
     backgroundColor: "#E0E0E0",
     borderRadius: 10,
     width: "100%",
@@ -17,10 +17,15 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: "flex",
     flexWrap: "wrap",
-    alignItems: "flex-end",
+    alignItems: "center",
 
-    "& h2": { flexGrow: 1, color: "#333" },
-    "& h3": {},
+    "& h3": {
+      marginRight: "0.5rem",
+      color: "#333",
+    },
+    "& h4": {
+      marginLeft: "auto",
+    },
   },
   content: {
     marginTop: "0.5rem",
@@ -40,13 +45,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuCard({ ...data }) {
   const classes = useStyles();
-  const { item, price, description, askAvailability, image } = data;
+  const { name, price, description, askAvailability, image } = data;
 
   return (
     <Box component="article" className={classes.root}>
       <Box className={classes.header}>
-        <Typography variant="h2">{item}</Typography>
-        <Typography variant="h3">$ {price}</Typography>
+        <Typography variant="h3" color="primary">
+          {name}
+        </Typography>
+        {price && <Typography variant="h4">$ {price}</Typography>}
       </Box>
 
       {(description || askAvailability || image) && (

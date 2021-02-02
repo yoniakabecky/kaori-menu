@@ -1,8 +1,8 @@
 import Head from "next/head";
 import React from "react";
 
-import AdminLayout from "@@/components/layouts/AdminLayout";
-import MenuPage from "@@/components/pages/MenuPage";
+import AdminLayout from "@@/components/Layouts/AdminLayout";
+import MenuPage from "@@/components/MenuPage";
 
 export default function Menu() {
   return (

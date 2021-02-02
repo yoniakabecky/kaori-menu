@@ -1,7 +1,11 @@
 import firebase from "./firebaseConfig";
 
 export const getAllCategories = async () => {
-  const snapshot = await firebase.firestore().collection("categories").get();
+  const snapshot = await firebase
+    .firestore()
+    .collection("categories")
+    .orderBy("order")
+    .get();
 
   return snapshot.docs.map((doc) => ({
     id: doc.id,
@@ -28,8 +32,10 @@ export const getItemsByCategory = async (category) => {
     .where("category", "==", category)
     .get();
 
-  return snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  return snapshot.docs
+    .map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
+    .sort((a, b) => a.order - b.order);
 };

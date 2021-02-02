@@ -7,8 +7,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
-import DraggableIcon from "./icons/DraggableIcon";
-import EditIcon from "./icons/EditIcon";
+import DraggableIcon from "./Icons/DraggableIcon";
+import EditIcon from "./Icons/EditIcon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,8 +55,15 @@ const useStyles = makeStyles((theme) => ({
 export default function DraggableCard({ type, ...props }) {
   const classes = useStyles();
   const router = useRouter();
-  const { id, description, price, image, askAvailability, display } = props;
-  const name = type === "item" ? props.item : props.category;
+  const {
+    id,
+    description,
+    price,
+    image,
+    askAvailability,
+    display,
+    name,
+  } = props;
 
   return (
     <Paper className={classes.root}>

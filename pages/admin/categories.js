@@ -1,8 +1,8 @@
 import Head from "next/head";
 import React from "react";
 
-import AdminLayout from "@@/components/layouts/AdminLayout";
-import CategoriesPage from "@@/components/pages/CategoriesPage";
+import AdminLayout from "@@/components/Layouts/AdminLayout";
+import CategoriesPage from "@@/components/CategoriesPage";
 import { getAllCategories } from "@@/utils/handlers";
 
 export default function Categories({ categories }) {

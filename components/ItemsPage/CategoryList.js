@@ -4,10 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
-import firebase from "@@/utils/firebaseConfig";
-import TriangleIcon from "./icons/TriangleIcon";
-import DraggableCard from "./DraggableCard";
-import { getItemsByCategory } from "../utils/handlers";
+import { getItemsByCategory } from "@@/utils/handlers";
+import TriangleIcon from "../Icons/TriangleIcon";
+import DraggableCard from "../DraggableCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CategoryList({ category, id }) {
+export default function CategoryList({ name, id }) {
   const classes = useStyles();
   const [items, setItems] = React.useState([]);
 
@@ -45,7 +44,7 @@ export default function CategoryList({ category, id }) {
     <React.Fragment>
       <Paper className={classes.root} onClick={handleClick}>
         <Typography variant="h3" className={classes.name}>
-          {category}
+          {name}
         </Typography>
 
         <TriangleIcon className={classes.icon} />

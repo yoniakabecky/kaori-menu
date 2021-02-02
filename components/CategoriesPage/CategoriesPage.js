@@ -4,7 +4,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 
-import AddFolderIcon from "../icons/AddFolderIcon";
+import AddFolderIcon from "../Icons/AddFolderIcon";
 import DraggableCard from "../DraggableCard";
 
 const useStyles = makeStyles((theme) => ({

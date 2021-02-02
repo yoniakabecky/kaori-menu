@@ -4,8 +4,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 
-import AddListIcon from "../icons/AddListIcon";
-import CategoryList from "../CategoryList";
+import AddListIcon from "../Icons/AddListIcon";
+import CategoryList from "./CategoryList";
 
 const useStyles = makeStyles((theme) => ({
   fab: {

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 
-import AdminLayout from "@@/components/layouts/AdminLayout";
+import AdminLayout from "@@/components/Layouts/AdminLayout";
 import CategoryInput from "@@/components/CategoryInput";
 import firebase from "@@/utils/firebaseConfig";
 import { getCategoryById } from "@@/utils/handlers";

@@ -7,9 +7,9 @@ import Container from "@material-ui/core/Container";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
-import TopNav from "@@/components/layouts/TopNav";
-import Footer from "@@/components/layouts/Footer";
-import CategorySection from "@@/components/CategorySection";
+import TopNav from "@@/components/Layouts/TopNav";
+import Footer from "@@/components/Layouts/Footer";
+import CategorySection from "@@/components/HomePage/CategorySection";
 import { getAllCategories } from "@@/utils/handlers";
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +60,7 @@ export default function Home({ categories }) {
         {categories.map((data) => (
           <Tab
             key={data.id}
-            label={data.category}
+            label={data.name}
             classes={{ root: classes.tab, selected: classes.selectedTab }}
             component={Link}
             to={data.id}

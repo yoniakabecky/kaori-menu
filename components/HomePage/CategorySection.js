@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
     height: 3,
   },
   description: {
-    margin: "0.75rem 0",
+    margin: "0.75rem 0.25rem",
   },
 }));
 
 export default function CategorySection({
-  category: { id, category, description },
+  category: { id, name, description },
 }) {
   const classes = useStyles();
   const [items, setItems] = React.useState([]);
@@ -39,7 +39,7 @@ export default function CategorySection({
   return (
     <Box component="section" className={classes.root} id={id}>
       <Typography variant="h2" className={classes.title}>
-        {category}
+        {name}
       </Typography>
 
       <Box component="div" className={classes.line} />
