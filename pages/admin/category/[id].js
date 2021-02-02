@@ -9,7 +9,7 @@ import { getCategoryById } from "@@/utils/handlers";
 export default function EditCategory({ data, id }) {
   const handleUpdate = async (input) => {
     const categoriesRef = firebase.firestore().collection("categories");
-    const docName = input.category.toLowerCase();
+    const docName = input.name.toLowerCase();
 
     if (docName === id) {
       try {

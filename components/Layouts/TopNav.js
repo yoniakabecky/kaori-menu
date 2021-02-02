@@ -7,8 +7,10 @@ import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 
 import MenuIcon from "../Icons/MenuIcon";
+import JapaneseFlag from "../Icons/JapaneseFlag";
+import CanadianFlag from "../Icons/CanadianFlag";
 
-export default function TopNav({ isAdmin }) {
+export default function TopNav({ isAdmin, language, setLanguage }) {
   return (
     <AppBar position="fixed">
       <Toolbar>
@@ -16,9 +18,15 @@ export default function TopNav({ isAdmin }) {
 
         <Box component="span" flexGrow="1" />
 
-        {isAdmin && (
+        {isAdmin ? (
           <IconButton>
             <MenuIcon />
+          </IconButton>
+        ) : (
+          <IconButton
+            onClick={() => setLanguage(language === "EN" ? "JP" : "EN")}
+          >
+            {language === "EN" ? <JapaneseFlag /> : <CanadianFlag />}
           </IconButton>
         )}
       </Toolbar>

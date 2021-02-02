@@ -55,12 +55,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initInput = {
-  item: "",
+  name: "",
   description: "",
   price: "",
   category: "",
   askAvailability: false,
   display: true,
+  option: "",
+  japanese: "",
 };
 
 function Alert(props) {
@@ -76,7 +78,7 @@ export default function ItemInput({
   const router = useRouter();
   const [input, setInput] = useState({ ...data });
   const [availability, setAvailability] = useState(false);
-  const [error, setError] = useState({ item: "", price: "", category: "" });
+  const [error, setError] = useState({ name: "", price: "", category: "" });
   const [errorBar, setErrorBar] = useState(false);
   const inputFile = React.useRef(null);
 
@@ -111,15 +113,15 @@ export default function ItemInput({
   };
 
   const inputValidation = () => {
-    let errorMsg = { item: "", price: "", category: "" };
+    let errorMsg = { name: "", price: "", category: "" };
 
-    errorMsg.item = input.item === "" ? "Item Name must not be empty" : "";
+    errorMsg.name = input.name === "" ? "Item Name must not be empty" : "";
     errorMsg.price = input.price === "" ? "Price must not be empty" : "";
     errorMsg.category = input.category === "" ? "Must choose a category" : "";
 
     setError({ ...errorMsg });
 
-    return input.item === "" || input.price === "" || input.category === "";
+    return input.name === "" || input.price === "" || input.category === "";
   };
 
   const handleClick = async () => {
@@ -151,14 +153,23 @@ export default function ItemInput({
         <TextField
           label="item name"
           variant="filled"
-          name="item"
+          name="name"
           className={classes.input}
-          value={input.item}
+          value={input.name}
           onChange={handleChange}
           onBlur={handleOnBlur}
           required
-          error={error.item !== ""}
-          helperText={error.item}
+          error={error.name !== ""}
+          helperText={error.name}
+        />
+
+        <TextField
+          label="item name (Japanese)"
+          variant="filled"
+          name="japanese"
+          className={classes.input}
+          value={input.japanese}
+          onChange={handleChange}
         />
 
         <TextField
@@ -203,7 +214,7 @@ export default function ItemInput({
             {categories.length !== 0 ? (
               categories.map((choice) => (
                 <MenuItem value={choice.id} key={choice.id}>
-                  {choice.category}
+                  {choice.name}
                 </MenuItem>
               ))
             ) : (
@@ -215,6 +226,16 @@ export default function ItemInput({
             <FormHelperText>{error.category}</FormHelperText>
           )}
         </FormControl>
+
+        <TextField
+          label="option"
+          placeholder="V: vegetarian / SP: spicy"
+          variant="filled"
+          name="option"
+          className={classes.input}
+          value={input.option}
+          onChange={handleChange}
+        />
 
         <Box className={classes.fileSelector}>
           <input ref={inputFile} onChange={handleFileUpload} type="file" />

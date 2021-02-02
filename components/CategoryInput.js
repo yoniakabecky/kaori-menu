@@ -37,14 +37,14 @@ export default function CategoryInput({ handleSave, ...initInput }) {
   };
 
   const handleClick = async () => {
-    if (input.category === "") {
+    if (input.name === "") {
       setError("Category name must not be empty");
     } else {
       const result = await handleSave(input);
 
       if (result) {
         setInput({
-          category: "",
+          name: "",
           description: "",
         });
 
@@ -60,9 +60,9 @@ export default function CategoryInput({ handleSave, ...initInput }) {
       <TextField
         label="category name"
         variant="filled"
-        name="category"
+        name="name"
         className={classes.input}
-        value={input.category}
+        value={input.name}
         onChange={handleChange}
         required
         error={error !== ""}

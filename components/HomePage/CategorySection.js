@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CategorySection({
   category: { id, name, description },
+  language,
 }) {
   const classes = useStyles();
   const [items, setItems] = React.useState([]);
@@ -44,18 +45,24 @@ export default function CategorySection({
 
       <Box component="div" className={classes.line} />
 
-      <Typography variant="body1" className={classes.description}>
+      <Typography
+        variant="body1"
+        color="primary"
+        className={classes.description}
+      >
         {description}
       </Typography>
 
       {items.length > 0 ? (
         items.map(
           (item) =>
-            item.display && <MenuCard {...item} key={`item-${item.id}`} />
+            item.display && (
+              <MenuCard {...item} language={language} key={`item-${item.id}`} />
+            )
         )
       ) : (
         <Typography variant="body2" color="secondary">
-          coming soon...
+          loading...
         </Typography>
       )}
     </Box>

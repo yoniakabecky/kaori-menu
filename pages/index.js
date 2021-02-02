@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Home({ categories }) {
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState(0);
+  const [language, setLanguage] = React.useState("EN");
 
   return (
     <React.Fragment>
@@ -48,7 +49,7 @@ export default function Home({ categories }) {
         <title>Menu | Kaori Izakaya</title>
       </Head>
 
-      <TopNav />
+      <TopNav language={language} setLanguage={setLanguage} />
 
       <Tabs
         value={selectedTab}
@@ -75,7 +76,11 @@ export default function Home({ categories }) {
       <div className={classes.contents}>
         <Container>
           {categories.map((data) => (
-            <CategorySection key={data.id} category={data} />
+            <CategorySection
+              key={data.id}
+              category={data}
+              language={language}
+            />
           ))}
         </Container>
 
