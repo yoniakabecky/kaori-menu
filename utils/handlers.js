@@ -39,3 +39,14 @@ export const getItemsByCategory = async (category) => {
     }))
     .sort((a, b) => a.order - b.order);
 };
+
+export const getAllCategoriesWithItems = async () => {
+  const categories = await getAllCategories();
+
+  return Promise.all(
+    categories.map(async (category) => ({
+      items: await getItemsByCategory(category.id),
+      ...category,
+    }))
+  );
+};

@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 
-import { getItemsByCategory } from "@@/utils/handlers";
 import MenuCard from "./MenuCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,16 +25,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CategorySection({
-  category: { id, name, description },
+  data: { id, name, description, items },
   language,
 }) {
   const classes = useStyles();
-  const [items, setItems] = React.useState([]);
-
-  React.useEffect(async () => {
-    const res = await getItemsByCategory(id);
-    setItems(res);
-  }, []);
 
   return (
     <Box component="section" className={classes.root} id={id}>
