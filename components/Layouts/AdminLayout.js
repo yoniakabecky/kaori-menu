@@ -3,8 +3,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 
 import BottomNav from "./BottomNav";
+import SideNav from "./SideNav";
 import TopNav from "./TopNav";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,10 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AdminLayout({ children, pageTitle }) {
   const classes = useStyles();
+  const [openMenu, setOpenMenu] = React.useState(false);
 
   return (
     <React.Fragment>
-      <TopNav isAdmin={true} />
+      <TopNav isAdmin={true} openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
       <Container component="main" className={classes.container}>
         <Typography
@@ -42,6 +45,15 @@ export default function AdminLayout({ children, pageTitle }) {
       </Container>
 
       <BottomNav />
+
+      <SwipeableDrawer
+        anchor="right"
+        open={openMenu}
+        onClose={() => setOpenMenu(false)}
+        onOpen={() => setOpenMenu(true)}
+      >
+        <SideNav />
+      </SwipeableDrawer>
     </React.Fragment>
   );
 }

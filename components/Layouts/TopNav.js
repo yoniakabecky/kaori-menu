@@ -10,7 +10,13 @@ import MenuIcon from "../Icons/MenuIcon";
 import JapaneseFlag from "../Icons/JapaneseFlag";
 import CanadianFlag from "../Icons/CanadianFlag";
 
-export default function TopNav({ isAdmin, language, setLanguage }) {
+export default function TopNav({
+  isAdmin,
+  language,
+  setLanguage,
+  openMenu,
+  setOpenMenu,
+}) {
   return (
     <AppBar position="fixed">
       <Toolbar>
@@ -19,7 +25,7 @@ export default function TopNav({ isAdmin, language, setLanguage }) {
         <Box component="span" flexGrow="1" />
 
         {isAdmin ? (
-          <IconButton>
+          <IconButton onClick={() => setOpenMenu(!openMenu)}>
             <MenuIcon />
           </IconButton>
         ) : (
