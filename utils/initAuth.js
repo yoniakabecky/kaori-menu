@@ -6,12 +6,14 @@ const initAuth = () => {
     appPageURL: "/admin/menu",
     loginAPIEndpoint: "/api/login", // required
     logoutAPIEndpoint: "/api/logout", // required
-    // Required in most cases.
     firebaseAdminInitConfig: {
       credential: {
         projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY,
+        privateKey: (process.env.FIREBASE_PRIVATE_KEY ?? "").replace(
+          /\\n/gu,
+          "\n"
+        ),
       },
       databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
     },
