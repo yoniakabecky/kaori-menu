@@ -6,6 +6,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import { signOut } from "@@/utils/handlers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,11 +44,6 @@ export default function SideNav() {
   const classes = useStyles();
   const router = useRouter();
 
-  const handleLogout = () => {
-    // TODO: logout
-    router.push("/");
-  };
-
   return (
     <Box className={classes.root}>
       <Box className={classes.links}>
@@ -69,7 +65,7 @@ export default function SideNav() {
         variant="contained"
         color="default"
         className={classes.btn}
-        onClick={handleLogout}
+        onClick={() => signOut()}
       >
         Log out
       </Button>

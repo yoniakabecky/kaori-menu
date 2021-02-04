@@ -4,6 +4,9 @@ import React from "react";
 import Head from "next/head";
 
 import theme from "@@/utils/theme";
+import initAuth from "@@/utils/initAuth";
+
+initAuth();
 
 export default function MyApp({ Component, pageProps }) {
   React.useEffect(() => {

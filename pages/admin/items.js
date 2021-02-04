@@ -1,3 +1,8 @@
+import {
+  withAuthUser,
+  withAuthUserTokenSSR,
+  AuthAction,
+} from "next-firebase-auth";
 import Head from "next/head";
 import React from "react";
 
@@ -5,7 +10,7 @@ import AdminLayout from "@@/components/Layouts/AdminLayout";
 import ItemsPage from "@@/components/ItemsPage";
 import { getAllCategories } from "@@/utils/handlers";
 
-export default function Items({ categories }) {
+function Items({ categories }) {
   return (
     <React.Fragment>
       <Head>
@@ -19,7 +24,9 @@ export default function Items({ categories }) {
   );
 }
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = withAuthUserTokenSSR({
+  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async () => {
   const categories = await getAllCategories();
 
   return {
@@ -27,4 +34,8 @@ export const getServerSideProps = async () => {
       categories,
     },
   };
-};
+});
+
+export default withAuthUser({
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+})(Items);

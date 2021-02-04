@@ -26,6 +26,7 @@ const useStyles = makeStyles({
     layout: "flex",
     flexDirection: "column",
     width: "80%",
+    maxWidth: 600,
     textAlign: "center",
   },
 });

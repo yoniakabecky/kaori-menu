@@ -8,13 +8,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
 
-import firebase from "@@/utils/firebaseConfig";
-import { InputLabel, MenuItem } from "@material-ui/core";
+import ErrorSnackbar from "./ErrorSnackbar";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -64,10 +63,6 @@ const initInput = {
   option: "",
   japanese: "",
 };
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
 
 export default function ItemInput({
   handleSave,
@@ -275,15 +270,9 @@ export default function ItemInput({
         </Box>
       </Box>
 
-      <Snackbar
-        open={errorBar}
-        onClose={() => setErrorBar(false)}
-        autoHideDuration={5000}
-      >
-        <Alert severity="error">
-          Failed to add item. Please enter required fields.
-        </Alert>
-      </Snackbar>
+      <ErrorSnackbar open={errorBar} onClose={() => setErrorBar(false)}>
+        Failed to add item. Please enter required fields.
+      </ErrorSnackbar>
     </React.Fragment>
   );
 }

@@ -1,3 +1,8 @@
+import {
+  withAuthUser,
+  withAuthUserTokenSSR,
+  AuthAction,
+} from "next-firebase-auth";
 import Head from "next/head";
 import React from "react";
 
@@ -6,7 +11,7 @@ import ItemInput from "@@/components/ItemInput";
 import firebase from "@@/utils/firebaseConfig";
 import { getAllCategories } from "@@/utils/handlers";
 
-export default function AddItem({ categories }) {
+function AddItem({ categories }) {
   const handleAdd = async (input) => {
     const itemsRef = firebase.firestore().collection("items");
 
@@ -32,7 +37,9 @@ export default function AddItem({ categories }) {
   );
 }
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = withAuthUserTokenSSR({
+  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async () => {
   const categories = await getAllCategories();
 
   return {
@@ -40,4 +47,8 @@ export const getServerSideProps = async () => {
       categories,
     },
   };
-};
+});
+
+export default withAuthUser({
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+})(AddItem);

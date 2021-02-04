@@ -1,3 +1,4 @@
+import { withAuthUser, AuthAction } from "next-firebase-auth";
 import Head from "next/head";
 import React from "react";
 
@@ -10,7 +11,7 @@ const initInput = {
   description: "",
 };
 
-export default function AddCategory() {
+function AddCategory() {
   const handleAdd = async (input) => {
     const categoriesRef = firebase.firestore().collection("categories");
     const docName = input.category.toLowerCase();
@@ -36,3 +37,8 @@ export default function AddCategory() {
     </React.Fragment>
   );
 }
+
+export default withAuthUser({
+  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+})(AddCategory);

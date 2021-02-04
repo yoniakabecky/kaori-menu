@@ -1,3 +1,8 @@
+import {
+  withAuthUser,
+  withAuthUserTokenSSR,
+  AuthAction,
+} from "next-firebase-auth";
 import Head from "next/head";
 import React from "react";
 
@@ -6,7 +11,7 @@ import ItemInput from "@@/components/ItemInput";
 import firebase from "@@/utils/firebaseConfig";
 import { getAllCategories, getItemById } from "@@/utils/handlers";
 
-export default function EditItem({ data, categories, id }) {
+function EditItem({ data, categories, id }) {
   const handleUpdate = async (input) => {
     const itemsRef = firebase.firestore().collection("items");
 
@@ -36,7 +41,9 @@ export default function EditItem({ data, categories, id }) {
   );
 }
 
-export const getServerSideProps = async ({ query }) => {
+export const getServerSideProps = withAuthUserTokenSSR({
+  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ query }) => {
   const data = await getItemById(query.id);
   const categories = await getAllCategories();
 
@@ -47,4 +54,8 @@ export const getServerSideProps = async ({ query }) => {
       id: query.id,
     },
   };
-};
+});
+
+export default withAuthUser({
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+})(EditItem);

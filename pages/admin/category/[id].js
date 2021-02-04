@@ -1,3 +1,8 @@
+import {
+  withAuthUser,
+  withAuthUserTokenSSR,
+  AuthAction,
+} from "next-firebase-auth";
 import Head from "next/head";
 import React from "react";
 
@@ -6,7 +11,7 @@ import CategoryInput from "@@/components/CategoryInput";
 import firebase from "@@/utils/firebaseConfig";
 import { getCategoryById } from "@@/utils/handlers";
 
-export default function EditCategory({ data, id }) {
+function EditCategory({ data, id }) {
   const handleUpdate = async (input) => {
     const categoriesRef = firebase.firestore().collection("categories");
     const docName = input.name.toLowerCase();
@@ -54,7 +59,9 @@ export default function EditCategory({ data, id }) {
   );
 }
 
-export const getServerSideProps = async ({ query }) => {
+export const getServerSideProps = withAuthUserTokenSSR({
+  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ query }) => {
   const data = await getCategoryById(query.id);
 
   return {
@@ -63,4 +70,8 @@ export const getServerSideProps = async ({ query }) => {
       id: query.id,
     },
   };
-};
+});
+
+export default withAuthUser({
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+})(EditCategory);
