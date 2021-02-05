@@ -3,6 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Head from "next/head";
 import React from "react";
 
+import { MainContextProvider } from "@@/context/MainContext";
 import theme from "@@/utils/theme";
 import initAuth from "@@/utils/initAuth";
 
@@ -47,11 +48,13 @@ export default function MyApp({ Component, pageProps }) {
         <meta property="og:url" content={url} />
       </Head>
 
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <MainContextProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
 
-        <Component {...pageProps} />
-      </ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </MainContextProvider>
     </React.Fragment>
   );
 }

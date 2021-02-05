@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 
-import MenuCard from "./MenuCard";
+import ItemCard from "./ItemCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +48,7 @@ export default function CategorySection({
         items.map(
           (item) =>
             item.display && (
-              <MenuCard {...item} language={language} key={`item-${item.id}`} />
+              <ItemCard {...item} language={language} key={`item-${item.id}`} />
             )
         )
       ) : (
