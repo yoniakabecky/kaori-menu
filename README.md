@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="150" height="150" src="./resources/qr.png" alt="qr code">
+  <img width="391" height="200" src="./resources/qr.png" alt="qr code">
 </p>
 
 <h1 align="center">Kaori Izakaya Menu</h1>
