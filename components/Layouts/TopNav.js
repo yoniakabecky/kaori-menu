@@ -33,6 +33,7 @@ export default function TopNav({
           ) : (
             <IconButton
               onClick={() => setLanguage(language === "EN" ? "JP" : "EN")}
+              aria-label="Language"
             >
               {language === "EN" ? <JapaneseFlag /> : <CanadianFlag />}
             </IconButton>

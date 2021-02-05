@@ -1,13 +1,33 @@
-# Kaori Izakaya Menu
+<p align="center">
+  <img width="150" height="150" src="./resources/qr.png" alt="qr code">
+</p>
 
-Well... too tired to wipe the menus...
+<h1 align="center">Kaori Izakaya Menu</h1>
+
+<p align="center">
+  Online restaurant menu with management system
+</p>
 
 ![app top](./resources/mock.png)
+
+## Idea
+
+The Restaurant is still using menu books and servers have to clean (sanitize) after customers use them.  
+Well... too tired to wipe the menus... and that is pretty much damaging menus.
 
 ## Highlights
 
 - Customers can check menus
+- Support English / Japanese menu
+- Secured editing page
 - Easy to update menu items and categories
+
+## Tech Stack
+
+- Next.js
+- Firebase (Authentication, Firestore)
+- Material ui
+- Vercel
 
 ## Refs
 

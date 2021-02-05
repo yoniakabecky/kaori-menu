@@ -64,9 +64,12 @@ export default function HomePage({ categories }) {
             component={Link}
             to={data.id}
             spy={true}
+            hashSpy={true}
             smooth={true}
             offset={-150}
             duration={500}
+            delay={800}
+            isDynamic={true}
             onSetActive={() => setSelectedTab(i)}
           />
         ))}

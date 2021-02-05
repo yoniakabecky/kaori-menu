@@ -1,5 +1,3 @@
-import React from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -37,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   availability: {
     marginTop: "0.5rem",
-    color: theme.palette.secondary.main,
+    color: theme.palette.error.main,
   },
   image: {
     "& img": {

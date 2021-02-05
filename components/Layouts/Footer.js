@@ -62,6 +62,8 @@ export default function Footer() {
             target="_blank"
             href="https://www.facebook.com/Kaori-Izakaya-on-Main-660919604383880/"
             className={classes.socialBtn}
+            rel="noopener"
+            aria-label="facebook"
           >
             <FacebookIcon />
           </Button>
@@ -70,6 +72,8 @@ export default function Footer() {
             target="_blank"
             href="https://www.instagram.com/kaoriizakaya/"
             className={classes.socialBtn}
+            rel="noopener"
+            aria-label="instagram"
           >
             <InstagramIcon />
           </Button>
@@ -78,6 +82,7 @@ export default function Footer() {
             target="_blank"
             href="mailto:kaorionmain@gmail.com"
             className={classes.socialBtn}
+            aria-label="email"
           >
             <MailIcon />
           </Button>

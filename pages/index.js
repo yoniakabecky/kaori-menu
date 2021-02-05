@@ -1,18 +1,19 @@
+import dynamic from "next/dynamic";
 import Head from "next/head";
-import React from "react";
 
-import HomePage from "@@/components/HomePage";
 import { getAllCategoriesWithItems } from "@@/utils/handlers";
+
+const HomePage = dynamic(() => import("@@/components/HomePage"));
 
 export default function Home({ categories }) {
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>Menu | Kaori Izakaya</title>
       </Head>
 
       <HomePage categories={categories} />
-    </React.Fragment>
+    </>
   );
 }
 
