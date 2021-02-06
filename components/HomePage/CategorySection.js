@@ -3,6 +3,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 
 import ItemCard from "./ItemCard";
+import Skeletons from "./Skeletons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     margin: "0.75rem 0.25rem",
+  },
+  skeleton: {
+    marginBottom: "1rem",
+    borderRadius: 10,
+    width: "100%",
+    height: "5rem",
   },
 }));
 
@@ -44,7 +51,7 @@ export default function CategorySection({
         {description}
       </Typography>
 
-      {items.length > 0 ? (
+      {items?.length > 0 ? (
         items.map(
           (item) =>
             item.display && (
@@ -52,9 +59,7 @@ export default function CategorySection({
             )
         )
       ) : (
-        <Typography variant="body2" color="secondary">
-          loading...
-        </Typography>
+        <Skeletons className={classes.skeleton} />
       )}
     </Box>
   );

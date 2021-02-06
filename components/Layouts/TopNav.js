@@ -22,7 +22,7 @@ export default function TopNav({
     <AppBar position="fixed">
       <Container maxWidth="sm">
         <Toolbar disableGutters>
-          <Image src="/logo.png" alt="logo" width="138" height="32" />
+          <Image src="/static/logo.png" alt="logo" width="138" height="32" />
 
           <Box component="span" flexGrow="1" />
 

@@ -4,10 +4,9 @@ import TopNav from "@@/components/Layouts/TopNav";
 import { MainContext } from "@@/context/MainContext";
 import { LOADING_CATEGORIES, SET_CATEGORIES } from "@@/context/types";
 import { getAllCategoriesWithItems } from "@@/utils/handlers";
-import LoadingScreen from "../Layouts/LoadingScreen";
 import Menu from "./Menu";
 
-export default function HomePage() {
+export default function HomePage({ firstLoad }) {
   const [language, setLanguage] = React.useState("EN");
   const {
     state: { loading, categories },
@@ -28,7 +27,7 @@ export default function HomePage() {
       {!loading && categories.length > 0 ? (
         <Menu categories={categories} language={language} />
       ) : (
-        <LoadingScreen />
+        <Menu categories={firstLoad} language={language} />
       )}
     </React.Fragment>
   );

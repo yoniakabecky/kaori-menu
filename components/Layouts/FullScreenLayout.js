@@ -41,7 +41,7 @@ export default function FullScreenLayout({ children }) {
       </Head>
 
       <div className={classes.logo}>
-        <Image src="/logo.png" alt="logo" width="216" height="50" />
+        <Image src="/static/logo.png" alt="logo" width="216" height="50" />
       </div>
 
       <div className={classes.contents}>{children}</div>

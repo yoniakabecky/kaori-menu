@@ -29,23 +29,24 @@ export default function MyApp({ Component, pageProps }) {
         <title>Kaori Izakaya</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
-          name="description"
-          content="Online menu for Kaori Izakaya. Izakaya = Japanese style bar! Come and enjoy the Sake and traditional Japanese tapas."
-        />
-        <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
         <meta
+          name="description"
+          content="Online menu for Kaori Izakaya. Izakaya = Japanese style bar! Come and enjoy the Sake and traditional Japanese tapas."
+        />
+        <meta
           property="og:title"
-          content="Kaori Izakaya - Japanese style bar"
+          content="Menu | Kaori Izakaya - Japanese style bar"
         />
         <meta
           property="og:description"
           content="Online menu for Kaori Izakaya. Izakaya = Japanese style bar! Come and enjoy the Sake and traditional Japanese tapas."
         />
-        <meta property="og:image" content={`${url}/logo.png`} />
+        <meta property="og:image" content={`${url}/static/logo.png`} />
         <meta property="og:url" content={url} />
+        <meta name="twitter:card" content="summary" />
       </Head>
 
       <MainContextProvider>

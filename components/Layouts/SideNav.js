@@ -71,7 +71,7 @@ export default function SideNav() {
       </Button>
 
       <Box className={classes.logo}>
-        <Image src="/logo.png" alt="logo" width="138" height="32" />
+        <Image src="/static/logo.png" alt="logo" width="138" height="32" />
       </Box>
     </Box>
   );

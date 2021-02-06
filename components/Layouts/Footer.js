@@ -55,7 +55,7 @@ export default function Footer() {
   return (
     <Grid container component="footer" className={classes.root}>
       <Grid item xs={6}>
-        <Image src="/logo.png" alt="logo" width="138" height="32" />
+        <Image src="/static/logo.png" alt="logo" width="138" height="32" />
 
         <Box className={classes.socialLink}>
           <Button
