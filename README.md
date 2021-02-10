@@ -1,5 +1,5 @@
 <p align="center">
-  <img max-width="391" max-height="200" src="./resources/qr.png" alt="qr code">
+  <img max-width="203" max-height="104" src="./resources/qr.png" alt="qr code">
 </p>
 
 <h1 align="center">Kaori Izakaya Menu</h1>
@@ -13,7 +13,9 @@
 ## Idea
 
 The Restaurant is still using menu books and servers have to clean (sanitize) after customers use them.  
-Well... too tired to wipe the menus... and that is pretty much damaging menus.
+Well... too tired to wipe the menus... and that is pretty much damaging menus.  
+
+So I created an online menu for the restaurant (with management system)
 
 ## Highlights
 
