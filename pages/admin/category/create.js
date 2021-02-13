@@ -1,17 +1,17 @@
-import { withAuthUser, AuthAction } from "next-firebase-auth";
 import Head from "next/head";
 import React from "react";
 
 import AdminLayout from "@@/components/Layouts/AdminLayout";
 import CategoryInput from "@@/components/CategoryInput";
-import firebase from "@@/utils/firebaseConfig";
+import firebase from "@@/firebase/config";
+import verifyCookie from "@@/utils/verifyCookie";
 
 const initInput = {
   category: "",
   description: "",
 };
 
-function AddCategory() {
+export default function AddCategory() {
   const handleAdd = async (input) => {
     const categoriesRef = firebase.firestore().collection("categories");
     const docName = input.category.toLowerCase();
@@ -38,7 +38,17 @@ function AddCategory() {
   );
 }
 
-export default withAuthUser({
-  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-})(AddCategory);
+export const getServerSideProps = async ({ req, res }) => {
+  const auth = await verifyCookie(req);
+
+  if (!auth.authenticated) {
+    res.writeHead(302, { Location: "/admin" });
+    res.end();
+
+    return { props: {} };
+  }
+
+  return {
+    props: {},
+  };
+};

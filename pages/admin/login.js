@@ -1,8 +1,3 @@
-import {
-  AuthAction,
-  withAuthUser,
-  withAuthUserTokenSSR,
-} from "next-firebase-auth";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -10,12 +5,14 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
 
 import ErrorSnackbar from "@@/components/ErrorSnackbar";
 import FullScreenLayout from "@@/components/Layouts/FullScreenLayout";
-import { signIn } from "@@/utils/handlers";
-import { CircularProgress } from "@material-ui/core";
+import { MainContext } from "@@/context/MainContext";
+import { LOGIN } from "@@/context/types";
+import { login } from "@@/utils/authHandlers";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -46,13 +43,21 @@ const Login = () => {
   const [errorBar, setErrorBar] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
+  const { state, dispatch } = React.useContext(MainContext);
+
+  if (state.authenticated) {
+    router.push("/admin/menu");
+  }
 
   const handleLogin = async () => {
     setLoading(true);
 
-    const res = await signIn(email, password);
+    const res = await login(email, password);
 
-    if (res?.error) {
+    if (res?.status === "success") {
+      dispatch({ type: LOGIN, payload: email });
+      router.push("/admin/menu");
+    } else {
       switch (res.error) {
         case "auth/user-not-found":
           setErrorMsg("No user found");
@@ -130,8 +135,4 @@ const Login = () => {
   );
 };
 
-export const getServerSideProps = withAuthUserTokenSSR()();
-
-export default withAuthUser({
-  whenAuthed: AuthAction.REDIRECT_TO_APP,
-})(Login);
+export default Login;

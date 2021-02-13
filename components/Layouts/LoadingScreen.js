@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "45vh",
     textAlign: "center",
     height: "100vh",
-    backgroundColor: theme.palette.background.secondary,
   },
 }));
 

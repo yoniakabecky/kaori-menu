@@ -6,7 +6,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { signOut } from "@@/utils/handlers";
+
+import { LOGOUT } from "@@/context/types";
+import { MainContext } from "@@/context/MainContext";
+import { logout } from "@@/utils/authHandlers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +46,14 @@ const useStyles = makeStyles((theme) => ({
 export default function SideNav() {
   const classes = useStyles();
   const router = useRouter();
+  const { dispatch } = React.useContext(MainContext);
+
+  const handleLogout = async () => {
+    await logout();
+
+    dispatch({ type: LOGOUT });
+    router.push("/admin");
+  };
 
   return (
     <Box className={classes.root}>
@@ -65,7 +76,7 @@ export default function SideNav() {
         variant="contained"
         color="default"
         className={classes.btn}
-        onClick={() => signOut()}
+        onClick={handleLogout}
       >
         Log out
       </Button>

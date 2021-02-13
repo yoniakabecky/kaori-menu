@@ -1,17 +1,13 @@
-import {
-  withAuthUser,
-  withAuthUserTokenSSR,
-  AuthAction,
-} from "next-firebase-auth";
 import Head from "next/head";
 import React from "react";
 
 import AdminLayout from "@@/components/Layouts/AdminLayout";
 import ItemInput from "@@/components/ItemInput";
-import firebase from "@@/utils/firebaseConfig";
+import firebase from "@@/firebase/config";
 import { getAllCategories, getItemById } from "@@/utils/handlers";
+import verifyCookie from "@@/utils/verifyCookie";
 
-function EditItem({ data, categories, id }) {
+export default function EditItem({ data, categories, id }) {
   const handleUpdate = async (input) => {
     const itemsRef = firebase.firestore().collection("items");
 
@@ -41,9 +37,16 @@ function EditItem({ data, categories, id }) {
   );
 }
 
-export const getServerSideProps = withAuthUserTokenSSR({
-  whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
-})(async ({ query }) => {
+export const getServerSideProps = async ({ req, res, query }) => {
+  const auth = await verifyCookie(req);
+
+  if (!auth.authenticated) {
+    res.writeHead(302, { Location: "/admin" });
+    res.end();
+
+    return { props: {} };
+  }
+
   const data = await getItemById(query.id);
   const categories = await getAllCategories();
 
@@ -54,8 +57,4 @@ export const getServerSideProps = withAuthUserTokenSSR({
       id: query.id,
     },
   };
-});
-
-export default withAuthUser({
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-})(EditItem);
+};

@@ -1,20 +1,22 @@
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import React from "react";
 
+import LoadingScreen from "@@/components/Layouts/LoadingScreen";
 import { MainContextProvider } from "@@/context/MainContext";
 import theme from "@@/utils/theme";
-import initAuth from "@@/utils/initAuth";
 
 const url =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
     : "https://kaori-menu.vercel.app";
 
-initAuth();
-
 export default function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  const [loading, setLoading] = React.useState(false);
+
   React.useEffect(() => {
     const jssStyles = document.querySelector("#jss-server-side");
 
@@ -22,6 +24,18 @@ export default function MyApp({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
+
+  React.useEffect(() => {
+    router.events.on("routeChangeStart", () => setLoading(true));
+    router.events.on("routeChangeComplete", () => setLoading(false));
+    router.events.on("routeChangeError", () => setLoading(false));
+
+    return () => {
+      router.events.off("routeChangeStart", () => setLoading(true));
+      router.events.off("routeChangeComplete", () => setLoading(false));
+      router.events.off("routeChangeError", () => setLoading(false));
+    };
+  });
 
   return (
     <React.Fragment>
@@ -53,7 +67,7 @@ export default function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
 
-          <Component {...pageProps} />
+          {loading ? <LoadingScreen /> : <Component {...pageProps} />}
         </ThemeProvider>
       </MainContextProvider>
     </React.Fragment>

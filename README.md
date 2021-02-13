@@ -34,3 +34,5 @@ So I created an online menu for the restaurant (with management system)
 ## Refs
 
 - [Import Data from Google Sheets](https://levelup.gitconnected.com/import-data-from-google-sheets-to-firestore-using-google-apps-script-b6f857f82a2)
+
+- [Firebase authentication](https://medium.com/javascript-in-plain-english/next-js-firebase-authentication-including-ssr-1045b097ee18)

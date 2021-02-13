@@ -10,7 +10,10 @@ const firebaseConfig = {
 };
 
 try {
-  firebase.initializeApp(firebaseConfig);
+  !firebase.apps.length && firebase.initializeApp(firebaseConfig);
+
+  // As httpOnly cookies are to be used, do not persist any state client side.
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 } catch (err) {
   if (!/already exists/.test(err.message)) {
     console.error("Firebase initialization error", err.stack);

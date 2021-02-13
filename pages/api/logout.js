@@ -1,17 +1,24 @@
-import { unsetAuthCookies } from "next-firebase-auth";
-import initAuth from "@@/utils/initAuth";
-
-initAuth();
+import admin from "@@/firebase/admin";
 
 const handler = async (req, res) => {
-  try {
-    await unsetAuthCookies(req, res);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
-    return res.status(500).json({ error: "Unexpected error." });
-  }
-  return res.status(200).json({ status: true });
+  const sessionCookie = req.cookies.session || "";
+
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie)
+    .then((decodedClaims) => {
+      return admin.auth().revokeRefreshTokens(decodedClaims.sub);
+    })
+    .then(() => {
+      res.setHeader(
+        "Set-Cookie",
+        serialize("session", "", { maxAge: -1, path: "/" })
+      );
+      res.end(JSON.stringify({ status: "success" }));
+    })
+    .catch((error) => {
+      res.status(401).send("catch error", error);
+    });
 };
 
 export default handler;

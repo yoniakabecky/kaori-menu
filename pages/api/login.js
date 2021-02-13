@@ -1,17 +1,44 @@
-import { setAuthCookies } from "next-firebase-auth";
-import initAuth from "@@/utils/initAuth";
+import { serialize } from "cookie";
 
-initAuth();
+import admin from "@@/firebase/admin";
 
 const handler = async (req, res) => {
-  try {
-    await setAuthCookies(req, res);
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
-    return res.status(500).json({ error: "Unexpected error." });
+  const idToken = req.body.token;
+
+  const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
+
+  if (req.method === "POST") {
+    await admin
+      .auth()
+      .verifyIdToken(idToken)
+      .then((decodedIdToken) => {
+        // Only process if the user just signed in in the last 5 minutes.
+        if (new Date().getTime() / 1000 - decodedIdToken.auth_time < 5 * 60) {
+          return admin.auth().createSessionCookie(idToken, { expiresIn });
+        }
+        res.status(401).send("Recent sign in required!");
+      })
+      .then(
+        (sessionCookie) => {
+          const options = {
+            maxAge: expiresIn,
+            httpOnly: true,
+            secure: process.env.NEXT_PUBLIC_COOKIE_SECURE === "true",
+            path: "/",
+          };
+
+          res.setHeader(
+            "Set-Cookie",
+            serialize("session", sessionCookie, options)
+          );
+
+          res.end(JSON.stringify({ status: "success" }));
+        },
+        (error) => {
+          res.status(401).send("Unauthorized request");
+        }
+      );
   }
-  return res.status(200).json({ status: true });
 };
 
 export default handler;

@@ -6,6 +6,7 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 
 import FullScreenLayout from "@@/components/Layouts/FullScreenLayout";
+import verifyCookie from "@@/utils/verifyCookie";
 
 const useStyles = makeStyles({
   button: {
@@ -14,13 +15,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AdminTop() {
+export default function AdminTop({ authenticated }) {
   const classes = useStyles();
 
   return (
     <FullScreenLayout>
       <Box>
-        <Link href="/admin/login">
+        <Link href={authenticated ? "/admin/menu" : "/admin/login"}>
           <Button
             variant="contained"
             color="secondary"
@@ -44,4 +45,12 @@ export default function AdminTop() {
       </Box>
     </FullScreenLayout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const props = await verifyCookie(context);
+
+  return {
+    props,
+  };
 }

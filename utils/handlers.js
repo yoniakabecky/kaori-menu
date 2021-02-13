@@ -1,4 +1,4 @@
-import firebase from "./firebaseConfig";
+import firebase from "@@/firebase/config";
 
 export const getAllCategories = async () => {
   const snapshot = await firebase
@@ -50,16 +50,3 @@ export const getAllCategoriesWithItems = async () => {
     }))
   );
 };
-
-export const signIn = async (email, password) =>
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((res) => (res?.user ? true : null))
-    .catch((error) => ({ error: error.code }));
-
-export const signOut = async () =>
-  firebase
-    .auth()
-    .signOut()
-    .catch((error) => console.error(error));
