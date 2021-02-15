@@ -1,8 +1,11 @@
+import React from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
+import { downloadUrl } from "@@/utils/imageHandlers";
 import HotIcon from "../Icons/HotIcon";
 import LeafIcon from "../Icons/LeafIcon";
 
@@ -38,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.error.main,
   },
   image: {
+    textAlign: "right",
+
     "& img": {
       maxWidth: 120,
       maxHeight: 120,
@@ -52,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MenuCard({ language, ...data }) {
   const classes = useStyles();
+  const [imageUrl, setImageUrl] = React.useState(null);
 
   const {
     name,
@@ -62,6 +68,12 @@ export default function MenuCard({ language, ...data }) {
     option,
     japanese,
   } = data;
+
+  React.useEffect(async () => {
+    if (image) {
+      setImageUrl(await downloadUrl(image));
+    }
+  }, []);
 
   return (
     <Box component="article" className={classes.root}>
@@ -89,12 +101,6 @@ export default function MenuCard({ language, ...data }) {
 
       {(description || askAvailability || image) && (
         <Grid container className={classes.content}>
-          {image && (
-            <Grid item xs={6} className={classes.image}>
-              <img src={image} alt={data.item} />
-            </Grid>
-          )}
-
           <Grid item xs={image ? 6 : 12}>
             <Typography variant="body1">{description}</Typography>
             {askAvailability && (
@@ -103,6 +109,12 @@ export default function MenuCard({ language, ...data }) {
               </Typography>
             )}
           </Grid>
+
+          {image && imageUrl && (
+            <Grid item xs={6} className={classes.image}>
+              <img src={imageUrl} alt={data.item} />
+            </Grid>
+          )}
         </Grid>
       )}
     </Box>

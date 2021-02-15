@@ -13,6 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 
+import { uploadFile } from "@@/utils/imageHandlers";
 import ErrorSnackbar from "./ErrorSnackbar";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,11 +38,16 @@ const useStyles = makeStyles((theme) => ({
     margin: "0.5rem auto",
     width: "80%",
 
-    "& button": {
-      margin: "0.5rem 1rem 0.5rem 0",
-    },
     "& input": {
       display: "none",
+    },
+    "& label": {
+      margin: "0.5rem 1rem 0.5rem 0",
+      padding: "0.5rem 1.5rem",
+      borderRadius: 5,
+      backgroundColor: theme.palette.background.secondary,
+      fontWeight: "bold",
+      color: theme.palette.primary.main,
     },
   },
   choice: {
@@ -75,7 +81,7 @@ export default function ItemInput({
   const [availability, setAvailability] = useState(false);
   const [error, setError] = useState({ name: "", price: "", category: "" });
   const [errorBar, setErrorBar] = useState(false);
-  const inputFile = React.useRef(null);
+  const [file, setFile] = useState(null);
 
   const handleOnBlur = (e) => {
     const { name, value } = e.target;
@@ -101,12 +107,6 @@ export default function ItemInput({
     });
   };
 
-  const handleFileUpload = (e) => {
-    console.log(e.target.files);
-
-    // TODO: upload to firebase storage
-  };
-
   const inputValidation = () => {
     let errorMsg = { name: "", price: "", category: "" };
 
@@ -120,13 +120,28 @@ export default function ItemInput({
   };
 
   const handleClick = async () => {
-    const hasError = inputValidation();
+    let hasError = inputValidation();
+
+    let newInput = {
+      ...input,
+      askAvailability: availability,
+    };
+
+    if (file) {
+      const uploadedImage = await uploadFile(file);
+
+      if (uploadedImage) {
+        newInput = {
+          ...newInput,
+          image: uploadedImage,
+        };
+      } else {
+        hasError = false;
+      }
+    }
 
     if (!hasError) {
-      const result = await handleSave({
-        ...input,
-        askAvailability: availability,
-      });
+      const result = await handleSave(newInput);
 
       if (result) {
         setInput({
@@ -233,18 +248,15 @@ export default function ItemInput({
         />
 
         <Box className={classes.fileSelector}>
-          <input ref={inputFile} onChange={handleFileUpload} type="file" />
-          <Button
-            variant="contained"
-            color="default"
-            onClick={() => inputFile.current.click()}
-            disabled
-          >
-            Select Image
-          </Button>
-
-          {/* TODO: display file name */}
-          <span>file name</span>
+          <input
+            type="file"
+            id="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            accept="image/*"
+          />
+          <label htmlFor="file">
+            {input.image ? input.image : file ? file.name : "Select a file"}
+          </label>
         </Box>
 
         <FormControlLabel

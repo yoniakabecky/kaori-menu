@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
+import { downloadUrl } from "@@/utils/imageHandlers";
 import DraggableIcon from "./Icons/DraggableIcon";
 import EditIcon from "./Icons/EditIcon";
 
@@ -33,10 +34,15 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 1rem",
   },
   image: {
-    width: "85%",
-    height: "100%",
-    maxHeight: 80,
-    borderRadius: 5,
+    paddingRight: "1rem",
+    textAlign: "right",
+
+    "& img": {
+      maxWidth: "85%",
+      height: "100%",
+      maxHeight: 80,
+      borderRadius: 5,
+    },
   },
   drag: {
     position: "absolute",
@@ -55,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DraggableCard({ type, ...props }) {
   const classes = useStyles();
   const router = useRouter();
+  const [imageUrl, setImageUrl] = React.useState(null);
   const {
     id,
     description,
@@ -64,6 +71,12 @@ export default function DraggableCard({ type, ...props }) {
     display,
     name,
   } = props;
+
+  React.useEffect(async () => {
+    if (image) {
+      setImageUrl(await downloadUrl(image));
+    }
+  }, []);
 
   return (
     <Paper className={classes.root}>
@@ -110,9 +123,9 @@ export default function DraggableCard({ type, ...props }) {
             </Typography>
           </Grid>
 
-          {image && (
-            <Grid item xs={6} sm={4}>
-              <img className={classes.image} src={image} alt={name} />
+          {image && imageUrl && (
+            <Grid item xs={6} sm={4} className={classes.image}>
+              <img src={imageUrl} alt={name} />
             </Grid>
           )}
         </Grid>

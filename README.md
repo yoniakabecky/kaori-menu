@@ -13,7 +13,7 @@
 ## Idea
 
 The Restaurant is still using menu books and servers have to clean (sanitize) after customers use them.  
-Well... too tired to wipe the menus... and that is pretty much damaging menus.  
+Well... too tired to wipe the menus... and that is pretty much damaging menus.
 
 So I created an online menu for the restaurant (with management system)
 
@@ -27,8 +27,8 @@ So I created an online menu for the restaurant (with management system)
 ## Tech Stack
 
 - Next.js
-- Firebase (Authentication, Firestore)
-- Material ui
+- Firebase (Authentication, Firestore, Storage)
+- Material-UI
 - Vercel
 
 ## Refs
