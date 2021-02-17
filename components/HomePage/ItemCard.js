@@ -69,9 +69,13 @@ export default function MenuCard({ language, ...data }) {
     japanese,
   } = data;
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     if (image) {
-      setImageUrl(await downloadUrl(image));
+      async function getImageUrl() {
+        setImageUrl(await downloadUrl(image));
+      }
+
+      getImageUrl();
     }
   }, []);
 
@@ -112,7 +116,7 @@ export default function MenuCard({ language, ...data }) {
 
           {image && imageUrl && (
             <Grid item xs={6} className={classes.image}>
-              <img src={imageUrl} alt={data.item} />
+              <img src={imageUrl} alt={name} />
             </Grid>
           )}
         </Grid>

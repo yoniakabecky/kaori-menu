@@ -44,11 +44,7 @@ export const getServerSideProps = async ({ req, res }) => {
   if (!auth.authenticated) {
     res.writeHead(302, { Location: "/admin" });
     res.end();
-
-    return { props: {} };
   }
 
-  return {
-    props: {},
-  };
+  return { props: {} };
 };

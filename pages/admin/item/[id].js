@@ -3,11 +3,16 @@ import React from "react";
 
 import AdminLayout from "@@/components/Layouts/AdminLayout";
 import ItemInput from "@@/components/ItemInput";
+import { MainContext } from "@@/context/MainContext";
 import firebase from "@@/firebase/config";
-import { getAllCategories, getItemById } from "@@/utils/handlers";
+import { getItemById } from "@@/utils/handlers";
 import verifyCookie from "@@/utils/verifyCookie";
 
-export default function EditItem({ data, categories, id }) {
+export default function EditItem({ data, id }) {
+  const {
+    state: { categories },
+  } = React.useContext(MainContext);
+
   const handleUpdate = async (input) => {
     const itemsRef = firebase.firestore().collection("items");
 
@@ -48,12 +53,10 @@ export const getServerSideProps = async ({ req, res, query }) => {
   }
 
   const data = await getItemById(query.id);
-  const categories = await getAllCategories();
 
   return {
     props: {
       data,
-      categories,
       id: query.id,
     },
   };

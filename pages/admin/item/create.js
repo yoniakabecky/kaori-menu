@@ -4,10 +4,12 @@ import React from "react";
 import AdminLayout from "@@/components/Layouts/AdminLayout";
 import ItemInput from "@@/components/ItemInput";
 import firebase from "@@/firebase/config";
-import { getAllCategories } from "@@/utils/handlers";
+import { MainContext } from "@@/context/MainContext";
 import verifyCookie from "@@/utils/verifyCookie";
 
-export default function AddItem({ categories }) {
+export default function AddItem() {
+  const { state } = React.useContext(MainContext);
+
   const handleAdd = async (input) => {
     const itemsRef = firebase.firestore().collection("items");
 
@@ -27,7 +29,7 @@ export default function AddItem({ categories }) {
       </Head>
 
       <AdminLayout pageTitle="Add Item">
-        <ItemInput categories={categories} handleSave={handleAdd} />
+        <ItemInput categories={state.categories} handleSave={handleAdd} />
       </AdminLayout>
     </React.Fragment>
   );
@@ -39,15 +41,7 @@ export const getServerSideProps = async ({ req, res }) => {
   if (!auth.authenticated) {
     res.writeHead(302, { Location: "/admin" });
     res.end();
-
-    return { props: {} };
   }
 
-  const categories = await getAllCategories();
-
-  return {
-    props: {
-      categories,
-    },
-  };
+  return { props: {} };
 };

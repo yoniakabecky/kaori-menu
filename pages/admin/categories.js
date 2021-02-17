@@ -3,10 +3,27 @@ import React from "react";
 
 import AdminLayout from "@@/components/Layouts/AdminLayout";
 import CategoriesPage from "@@/components/CategoriesPage";
-import { getAllCategories } from "@@/utils/handlers";
+import { MainContext } from "@@/context/MainContext";
+import { SET_CATEGORIES } from "@@/context/types";
+import { getAllCategoriesWithItems } from "@@/utils/handlers";
 import verifyCookie from "@@/utils/verifyCookie";
 
-export default function Categories({ categories }) {
+export default function Categories() {
+  const { state, dispatch } = React.useContext(MainContext);
+
+  React.useEffect(() => {
+    async function fetchCategories() {
+      dispatch({
+        type: SET_CATEGORIES,
+        payload: await getAllCategoriesWithItems(),
+      });
+    }
+
+    if (state.categories.length <= 0) {
+      fetchCategories();
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <Head>
@@ -14,7 +31,7 @@ export default function Categories({ categories }) {
       </Head>
 
       <AdminLayout pageTitle="Categories">
-        <CategoriesPage categories={categories} />
+        <CategoriesPage categories={state.categories} />
       </AdminLayout>
     </React.Fragment>
   );
@@ -26,15 +43,7 @@ export const getServerSideProps = async ({ req, res }) => {
   if (!auth.authenticated) {
     res.writeHead(302, { Location: "/admin" });
     res.end();
-
-    return { props: {} };
   }
 
-  const categories = await getAllCategories();
-
-  return {
-    props: {
-      categories,
-    },
-  };
+  return { props: {} };
 };

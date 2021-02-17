@@ -255,7 +255,7 @@ export default function ItemInput({
             accept="image/*"
           />
           <label htmlFor="file">
-            {input.image ? input.image : file ? file.name : "Select a file"}
+            {input.image ? input.image : file ? file.name : "Select an image"}
           </label>
         </Box>
 

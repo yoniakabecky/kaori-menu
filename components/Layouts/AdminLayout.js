@@ -10,11 +10,13 @@ import SideNav from "./SideNav";
 import TopNav from "./TopNav";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: "#4F4F4F",
+  },
   container: {
     position: "relative",
     margin: "56px auto",
     padding: "2rem 0",
-    backgroundColor: "#4F4F4F",
     overflowY: "scroll",
     minHeight: "calc(100vh - 56px - 56px)",
   },
@@ -29,10 +31,10 @@ export default function AdminLayout({ children, pageTitle }) {
   const [openMenu, setOpenMenu] = React.useState(false);
 
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <TopNav isAdmin={true} openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
-      <Container component="main" className={classes.container}>
+      <Container component="main" maxWidth="sm" className={classes.container}>
         <Typography
           variant="h2"
           color="textSecondary"
@@ -54,6 +56,6 @@ export default function AdminLayout({ children, pageTitle }) {
       >
         <SideNav />
       </SwipeableDrawer>
-    </React.Fragment>
+    </div>
   );
 }

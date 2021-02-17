@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     display: "flex",
     margin: "1rem auto",
-    padding: "1rem",
+    padding: "0.5rem 1rem",
     width: "80%",
     backgroundColor: theme.palette.primary.main,
     color: "#828282",

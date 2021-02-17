@@ -12,8 +12,8 @@ const handler = async (req, res) => {
       .auth()
       .verifyIdToken(idToken)
       .then((decodedIdToken) => {
-        // Only process if the user just signed in in the last 5 minutes.
-        if (new Date().getTime() / 1000 - decodedIdToken.auth_time < 5 * 60) {
+        // Only process if the user just signed in in the last 15 minutes.
+        if (new Date().getTime() / 1000 - decodedIdToken.auth_time < 15 * 60) {
           return admin.auth().createSessionCookie(idToken, { expiresIn });
         }
         res.status(401).send("Recent sign in required!");
@@ -25,6 +25,7 @@ const handler = async (req, res) => {
             httpOnly: true,
             secure: process.env.NEXT_PUBLIC_COOKIE_SECURE === "true",
             path: "/",
+            sameSite: "none",
           };
 
           res.setHeader(

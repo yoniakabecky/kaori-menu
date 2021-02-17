@@ -37,19 +37,21 @@ export default function CategorySection({
 
   return (
     <Box component="section" className={classes.root} id={id}>
-      <Typography variant="h2" className={classes.title}>
-        {name}
-      </Typography>
+      <header>
+        <Typography variant="h2" className={classes.title}>
+          {name}
+        </Typography>
 
-      <Box component="div" className={classes.line} />
+        <Box component="div" className={classes.line} />
 
-      <Typography
-        variant="body1"
-        color="primary"
-        className={classes.description}
-      >
-        {description}
-      </Typography>
+        <Typography
+          variant="body1"
+          color="primary"
+          className={classes.description}
+        >
+          {description}
+        </Typography>
+      </header>
 
       {items?.length > 0 ? (
         items.map(

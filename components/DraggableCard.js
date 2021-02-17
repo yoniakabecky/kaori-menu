@@ -15,14 +15,16 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
     margin: "1rem auto",
-    padding: "1rem 0",
+    padding: "0.5rem 0",
     width: "80%",
+    minHeight: "40px",
   },
   name: {
     margin: "0 2.5rem",
+    lineHeight: "24px",
   },
   description: {
-    marginTop: "1rem",
+    marginTop: "0.5rem",
     padding: "0 1rem",
     color: "#828282",
   },
@@ -46,14 +48,14 @@ const useStyles = makeStyles((theme) => ({
   },
   drag: {
     position: "absolute",
-    top: "0.875rem",
+    top: "0.5rem",
     left: "0.5rem",
     cursor: "not-allowed",
     // cursor: "grab",
   },
   edit: {
     position: "absolute",
-    top: "0.375rem",
+    top: "0",
     right: "0.5rem",
   },
 }));
@@ -72,9 +74,13 @@ export default function DraggableCard({ type, ...props }) {
     name,
   } = props;
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     if (image) {
-      setImageUrl(await downloadUrl(image));
+      async function getImageUrl() {
+        setImageUrl(await downloadUrl(image));
+      }
+
+      getImageUrl();
     }
   }, []);
 

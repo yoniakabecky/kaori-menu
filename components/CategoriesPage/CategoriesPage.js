@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
     right: "1.5rem",
     bottom: "5rem",
     backgroundColor: theme.palette.secondary.main,
+    [theme.breakpoints.up("sm")]: { right: "27%" },
+    [theme.breakpoints.up("lg")]: { right: "30%" },
   },
 }));
 

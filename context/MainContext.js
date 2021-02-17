@@ -1,6 +1,12 @@
 import React from "react";
 
-import { LOGIN, LOGOUT, SET_CATEGORIES, LOADING_CATEGORIES } from "./types";
+import {
+  LOGIN,
+  LOGOUT,
+  SET_CATEGORIES,
+  LOADING_CATEGORIES,
+  UPDATE_ITEM,
+} from "./types";
 
 const initialState = {
   authenticated: false,
@@ -33,6 +39,15 @@ const mainReducer = (state, action) => {
       return {
         ...state,
         loading: true,
+      };
+    case UPDATE_ITEM:
+      const index = state.categories.findIndex(
+        (obj) => obj.id === action.payload.category
+      );
+      state.categories[index].items = action.payload.items;
+
+      return {
+        ...state,
       };
     default:
       return state;

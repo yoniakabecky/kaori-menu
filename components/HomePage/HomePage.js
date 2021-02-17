@@ -13,11 +13,17 @@ export default function HomePage({ firstLoad }) {
     dispatch,
   } = React.useContext(MainContext);
 
-  React.useEffect(async () => {
-    dispatch({ type: LOADING_CATEGORIES });
+  React.useEffect(() => {
+    async function fetchCategories() {
+      dispatch({ type: LOADING_CATEGORIES });
 
-    const data = await getAllCategoriesWithItems();
-    dispatch({ type: SET_CATEGORIES, payload: [...data] });
+      dispatch({
+        type: SET_CATEGORIES,
+        payload: [...(await getAllCategoriesWithItems())],
+      });
+    }
+
+    fetchCategories();
   }, []);
 
   return (

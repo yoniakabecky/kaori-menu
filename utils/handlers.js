@@ -50,3 +50,15 @@ export const getAllCategoriesWithItems = async () => {
     }))
   );
 };
+
+export const updateDisplay = async (id, value) => {
+  const itemsRef = firebase.firestore().collection("items");
+
+  try {
+    await itemsRef.doc(id).update({ display: value });
+    return true;
+  } catch (err) {
+    console.error("Error updating document: ", err);
+    return false;
+  }
+};

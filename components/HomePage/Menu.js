@@ -62,7 +62,7 @@ export default function Menu({ categories, language }) {
             spy={true}
             hashSpy={true}
             smooth={true}
-            offset={-150}
+            offset={-100}
             duration={500}
             delay={800}
             isDynamic={true}
