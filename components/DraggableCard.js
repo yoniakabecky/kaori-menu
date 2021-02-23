@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { Draggable } from "react-beautiful-dnd";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -16,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     margin: "1rem auto",
     padding: "0.5rem 0",
-    width: "80%",
     minHeight: "40px",
   },
   name: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#828282",
   },
   price: {
-    padding: "0.5rem 1rem",
+    padding: "0.25rem 1rem",
     fontWeight: 700,
   },
   display: {
@@ -50,8 +50,6 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "0.5rem",
     left: "0.5rem",
-    cursor: "not-allowed",
-    // cursor: "grab",
   },
   edit: {
     position: "absolute",
@@ -72,6 +70,7 @@ export default function DraggableCard({ type, ...props }) {
     askAvailability,
     display,
     name,
+    index,
   } = props;
 
   React.useEffect(() => {
@@ -85,57 +84,67 @@ export default function DraggableCard({ type, ...props }) {
   }, []);
 
   return (
-    <Paper className={classes.root}>
-      <DraggableIcon className={classes.drag} />
+    <Draggable draggableId={id} index={index}>
+      {(provided) => (
+        <Paper
+          className={classes.root}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+        >
+          <span className={classes.drag} {...provided.dragHandleProps}>
+            <DraggableIcon />
+          </span>
 
-      <Typography variant="h3" className={classes.name}>
-        {name}
-      </Typography>
+          <Typography variant="h3" className={classes.name}>
+            {name}
+          </Typography>
 
-      <IconButton
-        className={classes.edit}
-        onClick={() => router.push(`/admin/${type}/${id}`)}
-      >
-        <EditIcon />
-      </IconButton>
+          <IconButton
+            className={classes.edit}
+            onClick={() => router.push(`/admin/${type}/${id}`)}
+          >
+            <EditIcon />
+          </IconButton>
 
-      {description && (
-        <Typography variant="body1" className={classes.description}>
-          {description}
-        </Typography>
-      )}
-
-      {type === "item" && (
-        <Grid container>
-          <Grid item xs={6} sm={8}>
-            <Typography variant="body1" className={classes.price}>
-              $ {price}
+          {description && (
+            <Typography variant="body1" className={classes.description}>
+              {description}
             </Typography>
+          )}
 
-            <Typography
-              variant="body2"
-              color="secondary"
-              className={classes.display}
-            >
-              Display: {display ? "On" : "Off"}
-            </Typography>
+          {type === "item" && (
+            <Grid container>
+              <Grid item xs={6} sm={8}>
+                <Typography variant="body1" className={classes.price}>
+                  $ {price}
+                </Typography>
 
-            <Typography
-              variant="body2"
-              color="secondary"
-              className={classes.display}
-            >
-              Ask Server: {askAvailability ? "On" : "Off"}
-            </Typography>
-          </Grid>
+                <Typography
+                  variant="body2"
+                  color="secondary"
+                  className={classes.display}
+                >
+                  Display: {display ? "On" : "Off"}
+                </Typography>
 
-          {image && imageUrl && (
-            <Grid item xs={6} sm={4} className={classes.image}>
-              <img src={imageUrl} alt={name} />
+                <Typography
+                  variant="body2"
+                  color="secondary"
+                  className={classes.display}
+                >
+                  Ask Server: {askAvailability ? "On" : "Off"}
+                </Typography>
+              </Grid>
+
+              {image && imageUrl && (
+                <Grid item xs={6} sm={4} className={classes.image}>
+                  <img src={imageUrl} alt={name} />
+                </Grid>
+              )}
             </Grid>
           )}
-        </Grid>
+        </Paper>
       )}
-    </Paper>
+    </Draggable>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { resetServerContext } from "react-beautiful-dnd";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     position: "relative",
     margin: "56px auto",
-    padding: "2rem 0",
+    padding: "2rem",
     overflowY: "scroll",
     minHeight: "calc(100vh - 56px - 56px)",
   },
@@ -25,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
 }));
+
+resetServerContext();
 
 export default function AdminLayout({ children, pageTitle }) {
   const classes = useStyles();

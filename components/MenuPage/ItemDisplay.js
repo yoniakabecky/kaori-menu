@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 
 import { getItemsByCategory, updateDisplay } from "@@/utils/handlers";
 import { MainContext } from "@@/context/MainContext";
-import { UPDATE_ITEM } from "@@/context/types";
+import { UPDATE_ITEMS } from "@@/context/types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +41,7 @@ export default function ItemDisplay({
 
     if (res && items) {
       dispatch({
-        type: UPDATE_ITEM,
+        type: UPDATE_ITEMS,
         payload: {
           category,
           items,

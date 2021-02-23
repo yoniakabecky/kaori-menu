@@ -5,7 +5,7 @@ import {
   LOGOUT,
   SET_CATEGORIES,
   LOADING_CATEGORIES,
-  UPDATE_ITEM,
+  UPDATE_ITEMS,
 } from "./types";
 
 const initialState = {
@@ -40,7 +40,7 @@ const mainReducer = (state, action) => {
         ...state,
         loading: true,
       };
-    case UPDATE_ITEM:
+    case UPDATE_ITEMS:
       const index = state.categories.findIndex(
         (obj) => obj.id === action.payload.category
       );

@@ -62,3 +62,15 @@ export const updateDisplay = async (id, value) => {
     return false;
   }
 };
+
+export const updateOrder = async (collection, id, value) => {
+  const collectionRef = firebase.firestore().collection(collection);
+
+  try {
+    await collectionRef.doc(id).update({ order: value });
+    return true;
+  } catch (err) {
+    console.error("Error updating document: ", err);
+    return false;
+  }
+};

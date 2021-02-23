@@ -9,7 +9,6 @@ import ItemDisplay from "./ItemDisplay";
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: "0 auto",
-    width: "80%",
   },
   filter: {
     padding: "0 0.5rem",

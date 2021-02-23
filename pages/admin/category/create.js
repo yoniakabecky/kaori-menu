@@ -16,9 +16,13 @@ export default function AddCategory() {
     const categoriesRef = firebase.firestore().collection("categories");
     const docName = input.category.toLowerCase();
     const doc = await categoriesRef.doc(docName).get();
+    const order = categoriesRef.onSnapshot((snapshot) => snapshot.size + 1);
 
     if (!doc.exists) {
-      await categoriesRef.doc(docName).set(input);
+      await categoriesRef.doc(docName).set({
+        ...input,
+        order,
+      });
       return true;
     } else {
       return false;
