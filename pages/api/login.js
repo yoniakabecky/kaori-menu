@@ -1,10 +1,17 @@
 import { serialize } from "cookie";
+import Cors from "cors";
 
 import admin from "@@/firebase/admin";
+import runMiddleware from "@@/utils/runMiddleware";
+
+const cors = Cors({
+  methods: ["GET", "POST"],
+});
 
 const handler = async (req, res) => {
-  const idToken = req.body.token;
+  await runMiddleware(req, res, cors);
 
+  const idToken = req.body.token;
   const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
 
   if (req.method === "POST") {

@@ -3,6 +3,11 @@ import admin from "@@/firebase/admin";
 const handler = async (req, res) => {
   const sessionCookie = req.cookies.session || "";
 
+  res.setHeader(
+    "Set-Cookie",
+    serialize("session", "", { maxAge: -1, path: "/" })
+  );
+
   admin
     .auth()
     .verifySessionCookie(sessionCookie)
@@ -10,10 +15,6 @@ const handler = async (req, res) => {
       return admin.auth().revokeRefreshTokens(decodedClaims.sub);
     })
     .then(() => {
-      res.setHeader(
-        "Set-Cookie",
-        serialize("session", "", { maxAge: -1, path: "/" })
-      );
       res.end(JSON.stringify({ status: "success" }));
     })
     .catch((error) => {
