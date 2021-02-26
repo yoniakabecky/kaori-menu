@@ -1,4 +1,5 @@
 import firebase from "@@/firebase/config";
+import { getURL } from "next/dist/next-server/lib/utils";
 
 export const login = async (email, password) =>
   firebase
@@ -29,7 +30,7 @@ export const logout = async () =>
 const url =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "https://kaori-menu.vercel.app";
+    : "https://kaori-menu-git-cors-yoniakabecky.vercel.app";
 
 const postUserToken = async (token) => {
   const response = await fetch(url + "/api/login", {

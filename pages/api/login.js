@@ -5,7 +5,7 @@ import admin from "@@/firebase/admin";
 import runMiddleware from "@@/utils/runMiddleware";
 
 const cors = Cors({
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "OPTIONS"],
 });
 
 const handler = async (req, res) => {
