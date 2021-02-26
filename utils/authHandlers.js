@@ -1,5 +1,4 @@
 import firebase from "@@/firebase/config";
-import { getURL } from "next/dist/next-server/lib/utils";
 
 export const login = async (email, password) =>
   firebase
@@ -37,7 +36,6 @@ const postUserToken = async (token) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
     },
     body: JSON.stringify({ token: token }),
   });
