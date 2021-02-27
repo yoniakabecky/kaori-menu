@@ -36,9 +36,13 @@ const handler = async (req, res) => {
           res.end(JSON.stringify({ status: "success" }));
         },
         (error) => {
+          console.error({ error });
           res.status(401).send("Unauthorized request", error);
         }
-      );
+      )
+      .catch((error) => {
+        console.error({ error });
+      });
   }
 };
 
