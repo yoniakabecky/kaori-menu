@@ -32,10 +32,10 @@ const handler = async (req, res) => {
             "Set-Cookie",
             serialize("session", sessionCookie, options)
           );
-
           res.end(JSON.stringify({ status: "success" }));
         },
         (error) => {
+          console.error({ error });
           res.status(401).send("Unauthorized request");
         }
       );

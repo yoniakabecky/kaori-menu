@@ -35,14 +35,16 @@ const Menu = ({ categories }) => {
   );
 };
 
-export const getServerSideProps = async ({ req, res }) => {
-  const auth = await verifyCookie(req);
+export const getServerSideProps = async (context) => {
+  const auth = await verifyCookie(context);
 
   if (!auth.authenticated) {
-    res.writeHead(302, { Location: "/admin" });
-    res.end();
-
-    return { props: {} };
+    return {
+      redirect: {
+        destination: "/admin/login",
+        permanent: false,
+      },
+    };
   }
 
   const categories = await getAllCategoriesWithItems();

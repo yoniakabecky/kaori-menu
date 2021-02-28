@@ -9,20 +9,17 @@ export const login = async (email, password) =>
 
       return null;
     })
-    .catch((error) => ({ error: error.code }));
+    .catch((error) => ({ error }));
 
 export const logout = async () =>
   firebase
     .auth()
     .signOut()
-    .then(async (res) => {
-      if (res?.user)
-        return await fetch(url + "/api/logout", {
-          method: "POST",
-          credentials: "include",
-        });
-
-      return null;
+    .then(async () => {
+      return await fetch(url + "/api/logout", {
+        method: "POST",
+        credentials: "include",
+      });
     })
     .catch((error) => console.error(error));
 

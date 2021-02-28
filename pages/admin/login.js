@@ -13,6 +13,7 @@ import FullScreenLayout from "@@/components/Layouts/FullScreenLayout";
 import { MainContext } from "@@/context/MainContext";
 import { LOGIN } from "@@/context/types";
 import { login } from "@@/utils/authHandlers";
+import verifyCookie from "@@/utils/verifyCookie";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -43,11 +44,7 @@ const Login = () => {
   const [errorBar, setErrorBar] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const { state, dispatch } = React.useContext(MainContext);
-
-  if (state.authenticated) {
-    router.push("/admin/menu");
-  }
+  const { dispatch } = React.useContext(MainContext);
 
   const handleLogin = async () => {
     setLoading(true);
@@ -61,10 +58,6 @@ const Login = () => {
       switch (res.error) {
         case "auth/user-not-found":
           setErrorMsg("No user found");
-          break;
-
-        case "auth/wrong-password":
-          setErrorMsg("The password is invalid");
           break;
 
         default:
@@ -105,7 +98,7 @@ const Login = () => {
         <Button
           color="default"
           className={classes.btn}
-          onClick={() => router.back()}
+          onClick={() => router.push("/admin")}
           disabled={loading}
         >
           Cancel
@@ -136,3 +129,18 @@ const Login = () => {
 };
 
 export default Login;
+
+export const getServerSideProps = async (context) => {
+  const auth = await verifyCookie(context);
+
+  if (auth.authenticated) {
+    return {
+      redirect: {
+        destination: "/admin/menu",
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: {} };
+};

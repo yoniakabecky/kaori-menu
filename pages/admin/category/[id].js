@@ -55,22 +55,24 @@ export default function EditCategory({ data, id }) {
   );
 }
 
-export const getServerSideProps = async ({ req, res, query }) => {
-  const auth = await verifyCookie(req);
+export const getServerSideProps = async (context) => {
+  const auth = await verifyCookie(context);
 
   if (!auth.authenticated) {
-    res.writeHead(302, { Location: "/admin" });
-    res.end();
-
-    return { props: {} };
+    return {
+      redirect: {
+        destination: "/admin/login",
+        permanent: false,
+      },
+    };
   }
 
-  const data = await getCategoryById(query.id);
+  const data = await getCategoryById(context.query.id);
 
   return {
     props: {
       data,
-      id: query.id,
+      id: context.query.id,
     },
   };
 };

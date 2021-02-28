@@ -1,9 +1,10 @@
 import { parse } from "cookie";
 
 import admin from "@@/firebase/admin";
+import { logout } from "./authHandlers";
 
-const verifyCookie = async (req) => {
-  let email = "";
+const verifyCookie = async ({ req }) => {
+  let user = "";
   let authenticated = false;
 
   const cookies = parse(req.headers?.cookie || "");
@@ -14,14 +15,14 @@ const verifyCookie = async (req) => {
       .verifySessionCookie(cookies.session, true)
       .then((decodedClaims) => {
         authenticated = true;
-        email = decodedClaims.email;
+        user = decodedClaims.email;
       })
-      .catch(() => {
-        authenticated = false;
+      .catch(async (error) => {
+        await logout();
       });
   }
 
-  return { authenticated, email };
+  return { authenticated, user };
 };
 
 export default verifyCookie;
