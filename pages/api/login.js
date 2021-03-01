@@ -37,7 +37,7 @@ const handler = async (req, res) => {
         },
         (error) => {
           console.error({ error });
-          res.status(401).send("Unauthorized request", error);
+          res.status(401).send({ message: "Unauthorized request", error });
         }
       )
       .catch((error) => {
