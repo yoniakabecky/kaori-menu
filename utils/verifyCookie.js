@@ -1,8 +1,11 @@
 import { parse } from "cookie";
 
-import admin from "@@/firebase/admin";
+import getFirebaseAdmin from "@@/firebase/admin";
 
 const verifyCookie = async (req) => {
+  const admin = await getFirebaseAdmin();
+  if (!admin) return null;
+
   let email = "";
   let authenticated = false;
 

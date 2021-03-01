@@ -1,6 +1,9 @@
-import admin from "@@/firebase/admin";
+import getFirebaseAdmin from "@@/firebase/admin";
 
 const handler = async (req, res) => {
+  const admin = await getFirebaseAdmin();
+  if (!admin) return null;
+
   const sessionCookie = req.cookies.session || "";
 
   res.setHeader(

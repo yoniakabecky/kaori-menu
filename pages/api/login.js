@@ -1,8 +1,11 @@
 import { serialize } from "cookie";
 
-import admin from "@@/firebase/admin";
+import getFirebaseAdmin from "@@/firebase/admin";
 
 const handler = async (req, res) => {
+  const admin = await getFirebaseAdmin();
+  if (!admin) return null;
+
   const idToken = req.body.token;
 
   const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
