@@ -28,7 +28,7 @@ const handler = async (req, res) => {
             httpOnly: true,
             secure: process.env.NEXT_PUBLIC_COOKIE_SECURE === "true",
             path: "/",
-            sameSite: "none",
+            // sameSite: "none",
           };
 
           res.setHeader(
@@ -39,12 +39,11 @@ const handler = async (req, res) => {
           res.end(JSON.stringify({ status: "success" }));
         },
         (error) => {
-          console.error({ error });
           res.status(401).send({ message: "Unauthorized request", error });
         }
       )
       .catch((error) => {
-        console.error({ error });
+        res.status(401).send({ message: "Something wrong", error });
       });
   }
 };
