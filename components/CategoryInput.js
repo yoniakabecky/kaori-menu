@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     margin: "0.5rem auto",
-    width: "80%",
+    width: "100%",
   },
   btn: {
     margin: "1rem 0.5rem",

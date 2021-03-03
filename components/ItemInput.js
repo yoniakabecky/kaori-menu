@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     margin: "0.5rem auto",
-    width: "80%",
+    width: "100%",
   },
   buttons: {
     marginTop: "1rem",
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     margin: "0.5rem auto",
-    width: "80%",
+    width: "100%",
 
     "& input": {
       display: "none",
