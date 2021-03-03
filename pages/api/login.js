@@ -11,7 +11,7 @@ const handler = async (req, res) => {
   const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
 
   if (req.method === "POST") {
-    await admin
+    const cookie = await admin
       .auth()
       .verifyIdToken(idToken)
       .then((decodedIdToken) => {
@@ -21,30 +21,24 @@ const handler = async (req, res) => {
         }
         res.status(401).send("Recent sign in required!");
       })
-      .then(
-        (sessionCookie) => {
-          const options = {
-            maxAge: expiresIn,
-            httpOnly: true,
-            secure: process.env.NEXT_PUBLIC_COOKIE_SECURE === "true",
-            path: "/",
-            // sameSite: "none",
-          };
+      .catch((error) =>
+        res.status(401).send({ message: "Unauthorized request", error })
+      );
 
-          res.setHeader(
-            "Set-Cookie",
-            serialize("session", sessionCookie, options)
-          );
+    if (cookie) {
+      const options = {
+        maxAge: expiresIn,
+        httpOnly: true,
+        secure: process.env.NEXT_PUBLIC_COOKIE_SECURE === "true",
+        path: "/",
+        // sameSite: "none",
+      };
 
-          res.end(JSON.stringify({ status: "success" }));
-        },
-        (error) => {
-          res.status(401).send({ message: "Unauthorized request", error });
-        }
-      )
-      .catch((error) => {
-        res.status(401).send({ message: "Something wrong", error });
-      });
+      res.setHeader("Set-Cookie", serialize("session", sessionCookie, options));
+      res.end(JSON.stringify({ status: "success" }));
+    } else {
+      res.status(401).send({ message: "Invalid authentication" });
+    }
   }
 };
 
